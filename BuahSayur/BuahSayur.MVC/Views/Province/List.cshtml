@@ -1,0 +1,32 @@
+﻿@model IEnumerable<BuahSayur.ViewModel.ProvinceViewModel>
+
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Code)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Code)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    <input type="button" value="Edit" class="btn btn-warning btn-edit" data-id="@item.Id " />
+                    <input type="button" value="Delete" class="btn btn-danger btn-delete" data-id="@item.Id" />
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
