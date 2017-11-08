@@ -23,7 +23,7 @@ namespace BuahSayur.DataAccess
                           {
                               Id = p.Id,
                               Code = p.Code,
-                              Name = p.Name,                              
+                              Name = p.Name,
                           }).ToList();
             }
 
@@ -45,7 +45,7 @@ namespace BuahSayur.DataAccess
                             Name = model.Name,
                             Created = DateTime.Now,
                             CreatedBy = "Hasan",
-                            
+
                         };
                         db.Provinces.Add(province);
                         db.SaveChanges();
@@ -94,5 +94,22 @@ namespace BuahSayur.DataAccess
             }
             return result;
         }
+        public static ProvinceViewModel GetById(int id)
+        {
+            ProvinceViewModel result = new ProvinceViewModel();
+            using (var db = new BuahSayurContext())
+            {
+                result = (from p in db.Provinces
+                          where p.Id == id
+                          select new ProvinceViewModel
+                          {
+                              Id = p.Id,
+                              Code = p.Code,
+                              Name = p.Name,
+                          }).FirstOrDefault();
+            }
+            return result;
+        }
+
     }
 }

@@ -23,10 +23,46 @@
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>
                 <td>
-                    <input type="button" value="Edit" class="btn btn-warning btn-edit" data-id="@item.Id " />
-                    <input type="button" value="Delete" class="btn btn-danger btn-delete" data-id="@item.Id" />
+                    <button type="button" value="Edit" class="btn btn-warning btn-edit" data-id="@item.Id" title="Edit"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button>
+                    <button type="button" value="Delete" class="btn btn-danger btn-delete" data-id="@item.Id" title="Delete"><span class="glyphicon glyphicon-erase" aria-hidden="true"></span></button>
                 </td>
             </tr>
         }
     </tbody>
 </table>
+
+<script type="text/javascript">
+    $(".btn-edit").click(function () {
+        //alert('Id nya adalah :' + $(this).attr("data-id"));
+        $.ajax({
+            url: '@Url.Action("Edit", "Province")',
+            type: 'get',
+            data: { id: $(this).attr("data-id") },
+            success: function (result) {
+                $(".modal-body").html(result);
+                $("#modal-form").modal("show");
+
+            }
+        });
+
+
+    });
+    $(".btn-delete").click(function () {
+       //alert('Id nya adalah :' + $(this).attr("data-id"));
+        $.ajax({
+            url: '@Url.Action("Delete", "Province")',
+            type: 'get',
+            data: { id: $(this).attr("data-id") },
+            success: function (result) {
+                $(".modal-body").html(result);
+                $("#modal-form").modal("show");
+
+            }
+        });
+
+
+    });
+
+</script>
+
+

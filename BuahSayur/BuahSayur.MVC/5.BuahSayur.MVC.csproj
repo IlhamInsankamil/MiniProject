@@ -187,6 +187,9 @@
     <Content Include="Views\Province\List.cshtml" />
     <Content Include="Views\Item\Index.cshtml" />
     <Content Include="Views\Item\List.cshtml" />
+    <Content Include="Views\Province\Create.cshtml" />
+    <Content Include="Views\Province\Edit.cshtml" />
+    <Content Include="Views\Province\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
