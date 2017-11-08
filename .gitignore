@@ -1,3 +1,5 @@
+*.csproj
+*.csproj.user
 app.config
 web.config
 
