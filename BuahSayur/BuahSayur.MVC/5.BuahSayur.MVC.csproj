@@ -118,6 +118,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\CityController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ItemController.cs" />
     <Compile Include="Controllers\ProvinceController.cs" />
@@ -187,15 +188,14 @@
     <Content Include="Views\Province\List.cshtml" />
     <Content Include="Views\Item\Index.cshtml" />
     <Content Include="Views\Item\List.cshtml" />
-<!--<<<<<<< HEAD-->
     <Content Include="Views\Province\Create.cshtml" />
     <Content Include="Views\Province\Edit.cshtml" />
     <Content Include="Views\Province\Delete.cshtml" />
-<!--=======-->
-    <Content Include="Views\Item\Create.cshtml" />
-    <Content Include="Views\Item\Edit.cshtml" />
-    <Content Include="Views\Item\Delete.cshtml" />
-<!-->>>>>>> 09d6b8e7f8652862665ab94a768baa1d22ce200a-->
+    <Content Include="Views\City\Index.cshtml" />
+    <Content Include="Views\City\List.cshtml" />
+    <Content Include="Views\City\Create.cshtml" />
+    <Content Include="Views\City\Edit.cshtml" />
+    <Content Include="Views\City\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
