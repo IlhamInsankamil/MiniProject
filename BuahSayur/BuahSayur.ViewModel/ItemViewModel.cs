@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,13 +21,32 @@ namespace BuahSayur.ViewModel
 
         public string Category { get; set; }
 
+        [DisplayName("Category")]
+        public string CategoryString
+        {
+            get
+            {
+                switch (Category)
+                {
+                    case "B":
+                        return "Buah";
+                    case "S":
+                        return "Sayur";
+                    default:
+                        return "";
+                }
+            }
+        }
+
         public decimal Stock { get; set; }
 
+        [DisplayName("Created"), DisplayFormat(DataFormatString = "{0:dd MMM yyyy}")]
         public DateTime? Created { get; set; }
-
+        
         [DisplayName("Created By")]
         public string CreatedBy { get; set; }
 
+        [DisplayName("Modified"), DisplayFormat(DataFormatString = "{0:dd MMM yyyy}")]
         public DateTime? Modified { get; set; }
 
         [DisplayName("Modified By")]
