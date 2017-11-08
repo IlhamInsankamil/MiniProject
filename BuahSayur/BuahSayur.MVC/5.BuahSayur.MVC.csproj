@@ -189,19 +189,14 @@
     <Content Include="Views\Province\List.cshtml" />
     <Content Include="Views\Item\Index.cshtml" />
     <Content Include="Views\Item\List.cshtml" />
-<<<<<<< HEAD
-    <!--<<<<<<< HEAD-->
     <Content Include="Views\Province\Create.cshtml" />
     <Content Include="Views\Province\Edit.cshtml" />
     <Content Include="Views\Province\Delete.cshtml" />
-    <!--=======-->
     <Content Include="Views\Item\Create.cshtml" />
     <Content Include="Views\Item\Edit.cshtml" />
     <Content Include="Views\Item\Delete.cshtml" />
     <Content Include="Views\Supplier\Index.cshtml" />
     <Content Include="Views\Supplier\List.cshtml" />
-    <!-->>>>>>> 09d6b8e7f8652862665ab94a768baa1d22ce200a-->
-=======
     <Content Include="Views\Province\Create.cshtml" />
     <Content Include="Views\Province\Edit.cshtml" />
     <Content Include="Views\Province\Delete.cshtml" />
@@ -210,7 +205,10 @@
     <Content Include="Views\City\Create.cshtml" />
     <Content Include="Views\City\Edit.cshtml" />
     <Content Include="Views\City\Delete.cshtml" />
->>>>>>> e063249c5af0fcd3de17d6a4987dac107f1ffcf7
+    <Content Include="Views\Supplier\Create.cshtml" />
+    <Content Include="Views\City\GetByProvince.cshtml" />
+    <Content Include="Views\Supplier\Delete.cshtml" />
+    <Content Include="Views\Supplier\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

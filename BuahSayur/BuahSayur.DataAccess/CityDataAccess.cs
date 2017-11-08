@@ -123,15 +123,16 @@ namespace BuahSayur.DataAccess
             }
             return result;
         }
-        public static List<CityViewModel> GetByProvince(string provincecode)
+        public static List<CityViewModel> GetByProvince(string provinceCode)
         {
             List<CityViewModel> result = new List<CityViewModel>();
+
             using (var db = new BuahSayurContext())
             {
                 result = (from ct in db.Cities
                           join p in db.Provinces
                               on ct.Province_Code equals p.Code
-                          where ct.Province_Code == provincecode
+                          where ct.Province_Code == provinceCode
                           select new CityViewModel
                           {
                               Id = ct.Id,

@@ -84,5 +84,10 @@ namespace BuahSayur.MVC.Controllers
             }
 
         }
+
+        public ActionResult GetByProvince(string provinceCode) // get from CityDataAccess
+        {
+            return View(CityDataAccess.GetByProvince(provinceCode));
+        }
     }
 }

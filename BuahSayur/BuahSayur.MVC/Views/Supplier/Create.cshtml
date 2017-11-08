@@ -1,0 +1,118 @@
+﻿@model BuahSayur.ViewModel.SupplierViewModel
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Add New Supplier</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Code, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Province_Code, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.Province_Code, (IEnumerable<SelectListItem>)ViewBag.ProvinceList, "Select Province", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Province_Code, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.Province_Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Province_Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Province_Name, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.City_Code, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.City_Code, (IEnumerable<SelectListItem>)ViewBag.CityList, "Select City", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.City_Code, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.City_Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.City_Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.City_Name, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+        <div class="form-group modal-footer">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="button" value="Create" class="btn btn-primary btn-create-conf" />
+                <input type="button" value="Cancel" class="btn btn-default" data-dismiss="modal" />
+            </div>
+        </div>
+    </div>
+}
+
+
+@Scripts.Render("~/bundles/jqueryval")
+
+
+<script type="text/javascript">
+    $('#Province_Code').change(function () {
+        $.ajax({
+            url: '@Url.Action("GetByProvince", "City")',
+            type: 'get',
+            data: { provinceCode: $(this).val() },
+            success: function (result) {
+                $("#City_Code").html(result);
+            }
+        });
+    });
+
+    $(".btn-create-conf").click(function () {
+        var item = {
+            Id: 0,
+            Code: $("#Code").val(),
+            Name: $("#Name").val(),
+            Address: $("#Address").val(),
+            Province_Code: $("#Province_Code").val(),
+            City_Code: $("#City_Code").val()
+        };
+        //alert(JSON.stringify(item));
+        $.ajax({
+            url: '@Url.Action("Create", "Supplier")',
+            type: 'post',
+            data: {model: item},
+            success: function(result){
+                if (result.success) {
+                    $("#modal-form").modal("hide");
+                    ShowList();
+                    alert("Create Succesful");
+                } else {
+                    alert('Error: ' + result.message);
+                }
+            }
+        });
+    });
+</script>

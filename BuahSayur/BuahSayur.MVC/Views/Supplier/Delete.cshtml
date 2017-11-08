@@ -1,0 +1,77 @@
+﻿@model BuahSayur.ViewModel.SupplierViewModel
+
+<div>
+    <h4>Delete this Supplier?</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Code)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Code)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Province_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Province_Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.City_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.City_Name)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color modal-footer">
+            <input type="button" value="Delete" class="btn btn-primary btn-delete-conf" data-id="@Model.Id" />
+            <input type="button" value="Cancel" class="btn btn-default" data-dismiss="modal" />
+        </div>
+    }
+</div>
+
+
+<script type="text/javascript">
+    $(".btn-delete-conf").click(function () {
+        $.ajax({
+            url: '@Url.Action("DeleteConfirm", "Supplier")',
+            type: 'post',
+            data: { id: $(this).attr("data-id") },
+            success: function(result){
+                if (result.success) {
+                    $("#modal-form").modal("hide");
+                    ShowList();
+                    alert("Delete Succesful");
+                } else {
+                    alert('Error: ' + result.message);
+                }
+            }
+        });
+    });
+</script>

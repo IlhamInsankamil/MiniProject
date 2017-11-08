@@ -39,45 +39,38 @@ namespace BuahSayur.DataAccess
             return result;
         }
 
-        //public static SupplierViewModel GetById(int id) // to find id for delete method
-        //{
-        //    SupplierViewModel result = new SupplierViewModel();
+        public static SupplierViewModel GetById(int id) // to find id for delete method and edit in SupplierController
+        {
+            SupplierViewModel result = new SupplierViewModel();
 
-        //    using (var db = new KaryawanContext())
-        //    {
-        //        result = (from em in db.Employees
-        //                  join jp in db.JobPositions
-        //                    on em.JobPositionCode equals jp.Code into jplf
-        //                  from jp in jplf.DefaultIfEmpty()
-        //                  join dp in db.Departments
-        //                    on jp.DepartmentCode equals dp.Code into dplf
-        //                  from dp in dplf.DefaultIfEmpty()
-        //                  join dv in db.Divisions
-        //                    on dp.DivisionCode equals dv.Code into dvlf
-        //                  from dv in dvlf.DefaultIfEmpty()
-        //                  where em.Id == id
-        //                  select new SupplierViewModel
-        //                  {
-        //                      Id = em.Id,
-        //                      BadgeId = em.BadgeId,
-        //                      DivisionCode = dv.Code,
-        //                      DepartmentCode = dp.Code,
-        //                      JobPositionCode = em.JobPositionCode,
-        //                      JobPositionName = jp.Description,
-        //                      FirstName = em.FirstName,
-        //                      MiddleName = em.MiddleName,
-        //                      LastName = em.LastName,
-        //                      Address = em.Address,
-        //                      DateOfHire = em.DateOfHire,
-        //                      DateOfResign = em.DateOfResign,
-        //                      PlaceOfBirth = em.PlaceOfBirth,
-        //                      DateOfBirth = em.DateOfBirth,
-        //                      Gender = em.Gender,
-        //                      IsActived = em.IsActived
-        //                  }).FirstOrDefault();
-        //    }
-        //    return result;
-        //}
+            using (var db = new BuahSayurContext())
+            {
+                result = (from s in db.Suppliers
+                          join c in db.Cities
+                            on s.City_Code equals c.Code into clf
+                          from c in clf.DefaultIfEmpty()
+                          join p in db.Provinces
+                            on c.Province_Code equals p.Code into plf
+                          from p in plf.DefaultIfEmpty()
+                          where s.Id == id
+                          select new SupplierViewModel
+                          {
+                              Id = s.Id,
+                              Code = s.Code,
+                              Name = s.Name,
+                              Address = s.Address,
+                              Province_Code = p.Code,
+                              Province_Name = p.Name,
+                              City_Code = c.Code,
+                              City_Name = c.Name
+                              //Created = s.Created,
+                              //CreatedBy = s.CreatedBy,
+                              //Modified = s.Modified,
+                              //ModifiedBy = s.ModifiedBy
+                          }).FirstOrDefault();
+            }
+            return result;
+        }
 
         public static bool Update(SupplierViewModel model)
         {
@@ -93,7 +86,7 @@ namespace BuahSayur.DataAccess
                             Code = model.Code,
                             Name = model.Name,
                             Address = model.Address,
-                            City_Code = model.City_Name,
+                            City_Code = model.City_Code,
                             Created = DateTime.Now,
                             CreatedBy = "Ilham"
                         };
@@ -108,7 +101,7 @@ namespace BuahSayur.DataAccess
                             supplier.Code = model.Code;
                             supplier.Name = model.Name;
                             supplier.Address = model.Address;
-                            supplier.City_Code = model.City_Name;
+                            supplier.City_Code = model.City_Code;
                             supplier.Modified = DateTime.Now;
                             supplier.ModifiedBy = "Ilham";
                             db.SaveChanges();

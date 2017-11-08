@@ -1,0 +1,8 @@
+﻿@model IEnumerable<BuahSayur.ViewModel.CityViewModel>
+
+@foreach (var item in Model)
+{
+    <option value="@item.Code">
+        @item.Name
+    </option>
+}
