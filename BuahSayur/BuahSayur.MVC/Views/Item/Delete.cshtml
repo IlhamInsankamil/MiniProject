@@ -1,0 +1,78 @@
+﻿@model BuahSayur.ViewModel.ItemViewModel
+
+<div>
+    <h4>Delete this Item?</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Code)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Code)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CategoryString)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CategoryString)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Stock)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Stock)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color modal-footer">
+            <input type="button" value="Delete" class="btn btn-primary btn-delete-conf" data-id="@Model.Id" />
+            <input type="button" value="Cancel" class="btn btn-default" data-dismiss="modal" />
+        </div>
+    }
+</div>
+
+
+<script type="text/javascript">
+    $(".btn-delete-conf").click(function () {
+        //alert("Idnya adalah: " + $(this).attr('data-id'));
+        $.ajax({
+            url: '@Url.Action("DeleteConfirm","Item")',
+            type: 'post',
+            data: { id: $(this).attr('data-id') },
+            success: function(result){
+                if (result.success) {
+                    $("#modal-form").modal("hide");
+                    ShowList();
+                    alert("Delete Successful");
+                } else {
+                    alert('Error: ' + result.message);
+                }
+            }
+        });
+    });
+</script>

@@ -33,6 +33,27 @@ namespace BuahSayur.DataAccess
             return result;
         }
 
+        public static ItemViewModel GetById(int id)
+        {
+            ItemViewModel result = new ItemViewModel();
+
+            using (var db = new BuahSayurContext())
+            {
+                result = (from i in db.Items
+                          where i.Id == id
+                          select new ItemViewModel
+                          {
+                              Id = i.Id,
+                              Code = i.Code,
+                              Name = i.Name,
+                              Price = i.Price,
+                              Category = i.Category,
+                              Stock = i.Stock
+                          }).FirstOrDefault();
+            }
+            return result;
+        }
+
         public static bool Update(ItemViewModel model)
         {
             bool result = true;
