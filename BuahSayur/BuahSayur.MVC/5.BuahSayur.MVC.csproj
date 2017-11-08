@@ -121,6 +121,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ItemController.cs" />
     <Compile Include="Controllers\ProvinceController.cs" />
+    <Compile Include="Controllers\SupplierController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -187,15 +188,17 @@
     <Content Include="Views\Province\List.cshtml" />
     <Content Include="Views\Item\Index.cshtml" />
     <Content Include="Views\Item\List.cshtml" />
-<!--<<<<<<< HEAD-->
+    <!--<<<<<<< HEAD-->
     <Content Include="Views\Province\Create.cshtml" />
     <Content Include="Views\Province\Edit.cshtml" />
     <Content Include="Views\Province\Delete.cshtml" />
-<!--=======-->
+    <!--=======-->
     <Content Include="Views\Item\Create.cshtml" />
     <Content Include="Views\Item\Edit.cshtml" />
     <Content Include="Views\Item\Delete.cshtml" />
-<!-->>>>>>> 09d6b8e7f8652862665ab94a768baa1d22ce200a-->
+    <Content Include="Views\Supplier\Index.cshtml" />
+    <Content Include="Views\Supplier\List.cshtml" />
+    <!-->>>>>>> 09d6b8e7f8652862665ab94a768baa1d22ce200a-->
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

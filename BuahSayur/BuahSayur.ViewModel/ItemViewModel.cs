@@ -38,7 +38,7 @@ namespace BuahSayur.ViewModel
             }
         }
 
-        [DisplayName("Stock"), DisplayFormat(DataFormatString = "{0:0}")]
+        [DisplayName("Stock (pack)"), DisplayFormat(DataFormatString = "{0:0}")]
         public decimal Stock { get; set; }
 
         [DisplayName("Created"), DisplayFormat(DataFormatString = "{0:dd MMM yyyy}")]
