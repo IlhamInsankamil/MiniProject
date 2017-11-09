@@ -1,31 +1,50 @@
 ﻿@{
     ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
+<div class="background-kamil"></div>
+
+<div class="jumbotron ">
+    <h1>Selamat Datang</h1>
+    <p class="lead">Silahkan berbelanja buah dan sayur segar atau ingin menjual sayur dan buah kepada kami.</p>
     <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
 </div>
-
 <div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+    <div class="col-md-1">
+
     </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+    <div class="col-md-4 breadcrumb" style="display:flex;">
+        <div style="width:30%;">
+            @*<span class="glyphicon glyphicon-euro"></span>*@
+            <span class="glyphicon glyphicon-barcode" style="position: relative;float: left;top: 50%;left: 50%;transform: translate(-50%, -50%);"></span>
+        </div>
+        <div style="width:70%">
+            <h2>Jual</h2>
+            <p>
+                Saya petani dan ingin menjual hasil panen.
+            </p>
+            <p class="pull-right"><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+        </div>
     </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+    <div class="col-md-2">
+
+    </div>
+    <div class="col-md-4 breadcrumb" style="display:flex;">
+        @*<div style="width:30%">
+            <span class="glyphicon glyphicon-shopping-cart" style="position: relative;float: left;top: 50%;left: 50%;transform: translate(-50%, -50%);"></span>
+        </div>
+        <div style="width:70%">
+            <h2>Beli</h2>
+            <p>Saya ingin membeli buah dan sayur segar.</p>
+            <p class="pull-right"><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+        </div>*@
+        <blockquote>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+            <small>Someone famous in <cite title="Source Title">Source Title</cite></small>
+        </blockquote>
+    </div>
+    <div class="col-md-1">
+
     </div>
 </div>
