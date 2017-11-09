@@ -1,0 +1,111 @@
+﻿@model BuahSayur.ViewModel.CustomerViewModel
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Add New Customer</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PhoneNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Province_Code, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.Province_Code, (IEnumerable<SelectListItem>)ViewBag.ProvinceList, "Select Province", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Province_Code, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.City_Code, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.City_Code, (IEnumerable<SelectListItem>)ViewBag.CityList, "Select City", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.City_Code, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+       
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="button" value="Create" class="btn btn-primary btn-create-conf" />
+                <input type="button" value="Cancel" class="btn btn-default" data-dismiss="modal" />
+            </div>
+        </div>
+    </div>
+}
+@Scripts.Render("~/bundles/jqueryval")
+
+<script type="text/javascript">
+    $('#Province_Code').change(function () {
+        $.ajax({
+            url: '@Url.Action("GetByProvince", "City")',
+            type: 'get',
+            data: { provinceCode: $(this).val() },
+            success: function (result) {
+                $("#City_Code").html(result);
+            }
+        });
+    });
+
+    $(".btn-create-conf").click(function () {
+        var item = {
+            Id: 0,
+            Code: $("#Code").val(),
+            FirstName: $("#FirstName").val(),
+            LastName: $("#LastName").val(),
+            Address: $("#Address").val(),
+            PhoneNumber: $("#PhoneNumber").val(),
+            Province_Code: $("#Province_Code").val(),
+            City_Code: $("#City_Code").val()
+        };
+        //alert(JSON.stringify(item));
+        $.ajax({
+            url: '@Url.Action("Create", "Customer")',
+            type: 'post',
+            data: {model: item},
+            success: function(result){
+                if (result.success) {
+                    $("#modal-form").modal("hide");
+                    ShowList();
+                    alert("Create Succesful");
+                } else {
+                    alert('Error: ' + result.message);
+                }
+            }
+        });
+    });
+</script>

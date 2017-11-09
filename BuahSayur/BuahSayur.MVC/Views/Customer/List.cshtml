@@ -1,0 +1,79 @@
+﻿@model IEnumerable<BuahSayur.ViewModel.CustomerViewModel>
+
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FullName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PhoneNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Province_Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.City_Name)
+            </th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FullName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PhoneNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Province_Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.City_Name)
+                </td>
+                <td>
+                    <input type="button" value="Edit" class="btn btn-warning btn-edit" data-id="@item.Id " />
+                    <input type="button" value="Delete" class="btn btn-danger btn-delete" data-id="@item.Id" />
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+<script type="text/javascript">
+    $(".btn-edit").click(function () {
+        //alert('Idnya adalah: ' + $(this).attr("data-id"));
+        $.ajax({
+            url: '@Url.Action("Edit", "Customer")',
+            type: 'get',
+            data: { id: $(this).attr("data-id") },
+            success: function (result) {
+                $(".modal-body").html(result);
+                $("#modal-form").modal("show");
+            }
+        });
+    });
+
+    $(".btn-delete").click(function () {
+        //alert('Idnya adalah: ' + $(this).attr("data-id"));
+        $.ajax({
+            url: '@Url.Action("Delete", "Customer")',
+            type: 'get',
+            data: { id: $(this).attr("data-id") },
+            success: function (result) {
+                $(".modal-body").html(result);
+                $("#modal-form").modal("show");
+            }
+        });
+    });
+</script>
