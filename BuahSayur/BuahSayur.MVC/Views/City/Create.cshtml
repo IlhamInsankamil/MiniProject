@@ -5,7 +5,7 @@
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>CityViewModel</h4>
+        <h4>Add City</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
@@ -40,9 +40,9 @@
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group modal-footer">
             <div class="col-md-offset-2 col-md-10">
-                <input type="button" value="Create" class="btn btn-success btn-create-conf" />
+                <input type="button" value="Create" class="btn btn-primary btn-create-conf" />
                 <input type="button" value="Cancel" class="btn btn-default" data-dismiss="modal" />
             </div>
         </div>
