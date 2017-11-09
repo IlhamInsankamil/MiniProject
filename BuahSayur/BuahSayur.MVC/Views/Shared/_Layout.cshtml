@@ -3,11 +3,27 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - BuahSayur</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    <style>
+        .background-kamil {
+            background-image: url('../../Content/images/food_web-900x448.jpg');
+            background-size: cover;
+            display: block;
+            filter: blur(10px) opacity(70%);
+            -webkit-filter: blur(10px) opacity(70%);
+            height: 800px;
+            left: 0;
+            position: fixed;
+            right: 0;
+            z-index: -1;
+        }
+    </style>
 </head>
 <body>
+    <div class="background-kamil"></div>
+
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -16,7 +32,8 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="@Url.Action("Index", "Home")"><span><img src="~/Content/images/logo-white.png" alt="Logo BuahSayur" height="30" /></span> BuahSayur
+                <a class="navbar-brand" href="@Url.Action("Index", "Home")">
+                    <span><img src="~/Content/images/logo-white.png" alt="Logo BuahSayur" height="30" /></span> BuahSayur
                 </a>
             </div>
             <div class="navbar-collapse collapse">
@@ -27,7 +44,7 @@
                         <ul class="dropdown-menu" role="menu">
                             <li>@Html.ActionLink("Province", "Index", "Province")</li>
                             <li>@Html.ActionLink("City", "Index", "City")</li>
-                            <li><a href="#">Customer</a></li>
+                            <li>@Html.ActionLink("Customer", "Index", "Customer")</li>
                             <li class="divider"></li>
                             <li>@Html.ActionLink("Item", "Index", "Item")</li>
                             <li class="divider"></li>
@@ -52,8 +69,8 @@
     <div class="container body-content">
         @RenderBody()
         <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        <footer class="well-sm btn-default disabled">
+            <h5 style="color:ghostwhite;">&copy; @DateTime.Now.Year - <b>BuahSayur</b>. A Mini Project by Hasan and kamil</h5>
         </footer>
     </div>
 

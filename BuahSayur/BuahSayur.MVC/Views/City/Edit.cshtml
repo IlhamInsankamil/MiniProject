@@ -6,7 +6,7 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>CityViewModel</h4>
+        <h4>Edit City</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.Id)
@@ -44,7 +44,7 @@
             </div>
         </div>        
 
-        <div class="form-group">
+        <div class="form-group modal-footer">
             <div class="col-md-offset-2 col-md-10">
                 <input type="button" value="Save" class="btn btn-primary btn-edit-conf" />
                 <input type="button" value="Cancel" class="btn btn-default" data-dismiss="modal" />
