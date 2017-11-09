@@ -23,6 +23,7 @@ namespace BuahSayur.ViewModel
 
         public string Address { get; set; }
 
+        [DisplayName("Phone Number")]
         public string PhoneNumber { get; set; }
         [DisplayName("Province")]
         public string Province_Code { get; set; }
@@ -35,6 +36,17 @@ namespace BuahSayur.ViewModel
 
         [DisplayName("City")]
         public string City_Name { get; set; }
+
+        [DisplayName("Address")]
+        public string FullAddress // not in create
+        {
+            get
+            {
+                return (!string.IsNullOrEmpty(Address) ? Address + ", " : "").ToString()
+                    + (!string.IsNullOrEmpty(City_Name) ? City_Name + ", " : "").ToString()
+                    + (!string.IsNullOrEmpty(Province_Name) ? Province_Name + " " : "").ToString();
+            }
+        }
 
         public DateTime? Created { get; set; }
 
