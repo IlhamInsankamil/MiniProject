@@ -1,7 +1,7 @@
 ﻿@model BuahSayur.ViewModel.CityViewModel
 
 <div>
-    <h4>Delete City this from List?</h4>
+    <h4>Delete this City from List?</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -68,7 +68,8 @@
                 if (result.success)
                 {
                     $("#modal-form").modal("hide");
-                    ShowList()
+                    ShowList();
+                    SuccessDeleted();
                 }
                 else
                 {

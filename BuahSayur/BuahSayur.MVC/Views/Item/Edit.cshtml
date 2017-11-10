@@ -6,7 +6,7 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>Edit Item</h4>
+        <h4>Edit Item Detail</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.Id)
@@ -113,7 +113,7 @@
                 if (result.success) {
                     $("#modal-form").modal("hide");
                     ShowList();
-                    alert("Save Successful");
+                    SuccessSaved();
                 } else {
                     alert('Error: ' + result.message);
                 }

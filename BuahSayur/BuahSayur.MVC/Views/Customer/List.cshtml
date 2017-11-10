@@ -35,8 +35,8 @@
                     @Html.DisplayFor(modelItem => item.IsActivated)
                 </td>
                 <td>
-                    <button type="button" value="Edit" class="btn btn-warning btn-edit" data-id="@item.Id" title="Edit"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button>
-                    <button type="button" value="Delete" class="btn btn-danger btn-delete" data-id="@item.Id" title="Delete"><span class="glyphicon glyphicon-erase" aria-hidden="true"></span></button>
+                    <button type="button" value="Edit" class="btn btn-warning btn-edit" data-id="@item.Id" onclick="ShowEdit(this)" title="Edit"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button>
+                    <button type="button" value="Delete" class="btn btn-danger btn-delete" data-id="@item.Id" onclick="ShowDelete(this)" title="Delete"><span class="glyphicon glyphicon-erase" aria-hidden="true"></span></button>
                 </td>
             </tr>
         }
@@ -54,7 +54,7 @@
         "autoWidth": false
     });
 
-    $(".btn-edit").click(function () {
+    @*$(".btn-edit").click(function () {
         //alert('Idnya adalah: ' + $(this).attr("data-id"));
         $.ajax({
             url: '@Url.Action("Edit", "Customer")',
@@ -78,5 +78,5 @@
                 $("#modal-form").modal("show");
             }
         });
-    });
+    });*@
 </script>

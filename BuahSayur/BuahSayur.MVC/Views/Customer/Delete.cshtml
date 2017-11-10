@@ -2,7 +2,7 @@
 
 
 <div>
-    <h4>Delete This Customer?</h4>
+    <h4>Delete This Customer from list?</h4>
     <hr />
     <dl class="dl-horizontal">
       
@@ -75,7 +75,7 @@
                 if (result.success) {
                     $("#modal-form").modal("hide");
                     ShowList();
-                    //alert("Delete Succesful");
+                    SuccessDeleted();
                 } else {
                     alert('Error: ' + result.message);
                 }

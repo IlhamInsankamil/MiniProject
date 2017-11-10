@@ -6,7 +6,7 @@
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>Create</h4>
+        <h4>Add Province</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
@@ -63,6 +63,7 @@
                 if (result.success) {
                     $("#modal-form").modal("hide");
                     ShowList();
+                    SuccessCreated();
                 } else {
                     alert('Error : ' + result.message);
                 }

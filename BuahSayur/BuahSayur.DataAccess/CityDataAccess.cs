@@ -46,7 +46,6 @@ namespace BuahSayur.DataAccess
                     {
                         City city = new City
                         {
-                            Id = model.Id,
                             Code = model.Code,
                             Province_Code = model.Province_Code,
                             Name = model.Name,
@@ -64,7 +63,6 @@ namespace BuahSayur.DataAccess
                         City city = db.Cities.Where(o => o.Id == model.Id).FirstOrDefault();
                         if (city != null)
                         {
-                            city.Id= model.Id;
                             city.Code = model.Code;
                             city.Province_Code = model.Province_Code;
                             city.Name = model.Name;
@@ -141,7 +139,7 @@ namespace BuahSayur.DataAccess
                           where ct.Province_Code == provinceCode
                           select new CityViewModel
                           {
-                              Id = ct.Id,
+                              //Id = ct.Id,
                               Code = ct.Code,
                               Province_Code = ct.Province_Code,
                               Name = ct.Name,
