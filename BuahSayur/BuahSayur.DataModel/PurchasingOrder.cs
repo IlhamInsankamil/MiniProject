@@ -20,6 +20,10 @@ namespace BuahSayur.DataModel
         [StringLength(10)]
         public string Supplier_Code { get; set; }
 
+        [Required]
+        [StringLength(10)]
+        public string Reference { get; set; }
+
         public DateTime PurchasingDate { get; set; }
 
         public DateTime? Created { get; set; }

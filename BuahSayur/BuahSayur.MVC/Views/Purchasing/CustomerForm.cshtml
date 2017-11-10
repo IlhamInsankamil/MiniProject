@@ -1,0 +1,53 @@
+﻿@model BuahSayur.ViewModel.CustomerViewModel
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Customer Cart</h4>
+        <hr />
+        
+        <input data-val="true" data-val-number="The field Id must be a number." data-val-required="The Id field is required." id="Id" name="Id" type="hidden" value="">
+
+        <div class="form-group">
+            <label class="control-label col-md-2" for="BadgeId">BadgeId</label>
+            <div class="col-md-10">
+                <input class="form-control text-box single-line" id="BadgeId" name="BadgeId" type="text" value="">
+                <span class="field-validation-valid text-danger" data-valmsg-for="BadgeId" data-valmsg-replace="true"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2" for="JobPositionName">Job Position</label>
+            <div class="col-md-10">
+                <input class="form-control text-box single-line" id="JobPositionName" name="JobPositionName" type="text" value="">
+                <span class="field-validation-valid text-danger" data-valmsg-for="JobPositionName" data-valmsg-replace="true"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2" for="FullName">Employee Name</label>
+            <div class="col-md-10">
+                <input class="form-control text-box single-line" id="FullName" name="FullName" type="text" value="">
+                <span class="field-validation-valid text-danger" data-valmsg-for="FullName" data-valmsg-replace="true"></span>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label class="control-label col-md-2" for="SellingDate">Selling Date</label>
+            <div class="col-md-10">
+                <input class="form-control text-box single-line datepicker" id="SellingDate" name="SellingDate" value="@DateTime.Now.ToString("dd MMM yyyy")">
+
+            </div>
+        </div>
+
+        <div class="col-lg-6 col-md-offset-2">
+            <h3>Total: <span id="selling-total">0</span></h3>
+        </div>
+
+    </div>
+}
+

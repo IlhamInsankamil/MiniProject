@@ -23,7 +23,7 @@ namespace BuahSayur.DataModel
         public decimal Price { get; set; }
 
         [Column(TypeName = "money")]
-        public decimal Total { get; set; }
+        public decimal? Total { get; set; }
 
         public DateTime? Created { get; set; }
 

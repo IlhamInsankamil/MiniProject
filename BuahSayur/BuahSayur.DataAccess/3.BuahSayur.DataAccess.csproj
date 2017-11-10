@@ -53,6 +53,7 @@
     <Compile Include="ItemDataAccess.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProvinceDataAccess.cs" />
+    <Compile Include="PurchasingDataAccess.cs" />
     <Compile Include="SupplierDataAccess.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -16,11 +16,11 @@ namespace BuahSayur.DataModel
 
         public int Id { get; set; }
 
+        public int Customer_Id { get; set; }
+
         [Required]
         [StringLength(10)]
-        public string Number { get; set; }
-
-        public int Customer_Id { get; set; }
+        public string Reference { get; set; }
 
         public DateTime SellingDate { get; set; }
 

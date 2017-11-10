@@ -41,8 +41,10 @@ namespace BuahSayur.ViewModel
         [DisplayName("Stock (pack)"), DisplayFormat(DataFormatString = "{0:0}")]
         public decimal Stock { get; set; }
 
+        [DisplayName("Weight (Kg)")]
         public decimal Weight { get; set; }
 
+        [DisplayName("Size (m³)")]
         public decimal Size { get; set; }
 
         public bool IsActivated { get; set; }

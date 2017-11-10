@@ -95,7 +95,7 @@ namespace BuahSayur.DataModel
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<DeliveryOrder>()
-                .Property(e => e.Number)
+                .Property(e => e.Reference)
                 .IsUnicode(false);
 
             modelBuilder.Entity<DeliveryOrder>()
@@ -209,6 +209,10 @@ namespace BuahSayur.DataModel
 
             modelBuilder.Entity<PurchasingOrder>()
                 .Property(e => e.Supplier_Code)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<PurchasingOrder>()
+                .Property(e => e.Reference)
                 .IsUnicode(false);
 
             modelBuilder.Entity<PurchasingOrder>()
