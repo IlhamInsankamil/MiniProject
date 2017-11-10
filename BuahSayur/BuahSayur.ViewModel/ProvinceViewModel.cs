@@ -15,6 +15,8 @@ namespace BuahSayur.ViewModel
 
         public string Name { get; set; }
 
+        public bool IsActivated { get; set; }
+
         public DateTime? Created { get; set; }
 
         [DisplayName("Created By")]

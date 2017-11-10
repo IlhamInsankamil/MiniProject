@@ -25,10 +25,19 @@
             </div>
         </div>
 
-
         <div class="form-group">
+            @Html.LabelFor(model => model.IsActivated, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.IsActivated)
+                    @Html.ValidationMessageFor(model => model.IsActivated, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group modal-footer">
             <div class="col-md-offset-2 col-md-10">
-                <input type="button" value="Create" class="btn btn-success btn-create-conf" />
+                <input type="button" value="Create" class="btn btn-primary btn-create-conf" />
                 <input type="button" value="Cancel" class="btn btn-default" data-dismiss="modal" />
             </div>
         </div>
@@ -43,6 +52,7 @@
             Id: 0,
             Code: $("#Code").val(),
             Name: $("#Name").val(),
+            IsActivated: $("#IsActivated").is(":checked")
         };
         //alert(JSON.stringify(item));
         $.ajax({

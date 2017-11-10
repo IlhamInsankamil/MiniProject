@@ -14,8 +14,12 @@ namespace BuahSayur.DataModel
 
         public virtual DbSet<City> Cities { get; set; }
         public virtual DbSet<Customer> Customers { get; set; }
+        public virtual DbSet<DeliveryOrder> DeliveryOrders { get; set; }
+        public virtual DbSet<DeliveryOrderDetail> DeliveryOrderDetails { get; set; }
         public virtual DbSet<Item> Items { get; set; }
         public virtual DbSet<Province> Provinces { get; set; }
+        public virtual DbSet<PurchasingOrder> PurchasingOrders { get; set; }
+        public virtual DbSet<PurchasingOrderDetail> PurchasingOrderDetails { get; set; }
         public virtual DbSet<Supplier> Suppliers { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -84,6 +88,54 @@ namespace BuahSayur.DataModel
                 .Property(e => e.ModifiedBy)
                 .IsUnicode(false);
 
+            modelBuilder.Entity<Customer>()
+                .HasMany(e => e.DeliveryOrders)
+                .WithRequired(e => e.Customer)
+                .HasForeignKey(e => e.Customer_Id)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<DeliveryOrder>()
+                .Property(e => e.Number)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<DeliveryOrder>()
+                .Property(e => e.CreatedBy)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<DeliveryOrder>()
+                .Property(e => e.ModifiedBy)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<DeliveryOrder>()
+                .HasMany(e => e.DeliveryOrderDetails)
+                .WithRequired(e => e.DeliveryOrder)
+                .HasForeignKey(e => e.DeliveryOrder_Id)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<DeliveryOrderDetail>()
+                .Property(e => e.Item_Code)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<DeliveryOrderDetail>()
+                .Property(e => e.Quantity)
+                .HasPrecision(18, 0);
+
+            modelBuilder.Entity<DeliveryOrderDetail>()
+                .Property(e => e.Price)
+                .HasPrecision(19, 4);
+
+            modelBuilder.Entity<DeliveryOrderDetail>()
+                .Property(e => e.Total)
+                .HasPrecision(19, 4);
+
+            modelBuilder.Entity<DeliveryOrderDetail>()
+                .Property(e => e.CreatedBy)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<DeliveryOrderDetail>()
+                .Property(e => e.ModifiedBy)
+                .IsUnicode(false);
+
             modelBuilder.Entity<Item>()
                 .Property(e => e.Code)
                 .IsUnicode(false);
@@ -103,7 +155,15 @@ namespace BuahSayur.DataModel
 
             modelBuilder.Entity<Item>()
                 .Property(e => e.Stock)
-                .HasPrecision(18, 4);
+                .HasPrecision(18, 0);
+
+            modelBuilder.Entity<Item>()
+                .Property(e => e.Weight)
+                .HasPrecision(18, 0);
+
+            modelBuilder.Entity<Item>()
+                .Property(e => e.Size)
+                .HasPrecision(18, 0);
 
             modelBuilder.Entity<Item>()
                 .Property(e => e.CreatedBy)
@@ -112,6 +172,18 @@ namespace BuahSayur.DataModel
             modelBuilder.Entity<Item>()
                 .Property(e => e.ModifiedBy)
                 .IsUnicode(false);
+
+            modelBuilder.Entity<Item>()
+                .HasMany(e => e.DeliveryOrderDetails)
+                .WithRequired(e => e.Item)
+                .HasForeignKey(e => e.Item_Code)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Item>()
+                .HasMany(e => e.PurchasingOrderDetails)
+                .WithRequired(e => e.Item)
+                .HasForeignKey(e => e.Item_Code)
+                .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Province>()
                 .Property(e => e.Code)
@@ -134,6 +206,48 @@ namespace BuahSayur.DataModel
                 .WithRequired(e => e.Province)
                 .HasForeignKey(e => e.Province_Code)
                 .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<PurchasingOrder>()
+                .Property(e => e.Supplier_Code)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<PurchasingOrder>()
+                .Property(e => e.CreatedBy)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<PurchasingOrder>()
+                .Property(e => e.ModifiedBy)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<PurchasingOrder>()
+                .HasMany(e => e.PurchasingOrderDetails)
+                .WithRequired(e => e.PurchasingOrder)
+                .HasForeignKey(e => e.PurchasingOrder_Id)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<PurchasingOrderDetail>()
+                .Property(e => e.Item_Code)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<PurchasingOrderDetail>()
+                .Property(e => e.Quantity)
+                .HasPrecision(18, 0);
+
+            modelBuilder.Entity<PurchasingOrderDetail>()
+                .Property(e => e.Price)
+                .HasPrecision(19, 4);
+
+            modelBuilder.Entity<PurchasingOrderDetail>()
+                .Property(e => e.Total)
+                .HasPrecision(19, 4);
+
+            modelBuilder.Entity<PurchasingOrderDetail>()
+                .Property(e => e.CreatedBy)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<PurchasingOrderDetail>()
+                .Property(e => e.ModifiedBy)
+                .IsUnicode(false);
 
             modelBuilder.Entity<Supplier>()
                 .Property(e => e.Code)
@@ -158,6 +272,12 @@ namespace BuahSayur.DataModel
             modelBuilder.Entity<Supplier>()
                 .Property(e => e.ModifiedBy)
                 .IsUnicode(false);
+
+            modelBuilder.Entity<Supplier>()
+                .HasMany(e => e.PurchasingOrders)
+                .WithRequired(e => e.Supplier)
+                .HasForeignKey(e => e.Supplier_Code)
+                .WillCascadeOnDelete(false);
         }
     }
 }

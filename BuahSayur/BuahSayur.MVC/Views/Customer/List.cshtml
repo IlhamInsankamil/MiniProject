@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<BuahSayur.ViewModel.CustomerViewModel>
 
-<table class="table table-striped table-hover">
+<table class="table table-striped table-hover" id="data-list">
     <thead>
         <tr class="success">
             <th>
@@ -12,12 +12,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.PhoneNumber)
             </th>
-            @*<th>
-                @Html.DisplayNameFor(model => model.Province_Name)
-            </th>
             <th>
-                @Html.DisplayNameFor(model => model.City_Name)
-            </th>*@
+                @Html.DisplayNameFor(model => model.IsActivated)
+            </th>
             <th>Action</th>
         </tr>
     </thead>
@@ -34,12 +31,9 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.PhoneNumber)
                 </td>
-                @*<td>
-                    @Html.DisplayFor(modelItem => item.Province_Name)
-                </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.City_Name)
-                </td>*@
+                    @Html.DisplayFor(modelItem => item.IsActivated)
+                </td>
                 <td>
                     <button type="button" value="Edit" class="btn btn-warning btn-edit" data-id="@item.Id" title="Edit"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button>
                     <button type="button" value="Delete" class="btn btn-danger btn-delete" data-id="@item.Id" title="Delete"><span class="glyphicon glyphicon-erase" aria-hidden="true"></span></button>
@@ -51,6 +45,15 @@
 
 
 <script type="text/javascript">
+    $("#data-list").DataTable({
+        "paging": true,
+        "lengthChange": true,
+        "searching": true,
+        "ordering": true,
+        "info": true,
+        "autoWidth": false
+    });
+
     $(".btn-edit").click(function () {
         //alert('Idnya adalah: ' + $(this).attr("data-id"));
         $.ajax({

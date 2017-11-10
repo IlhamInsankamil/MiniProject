@@ -43,14 +43,6 @@
             </div>
         </div>
 
-        @*<div class="form-group">
-            @Html.LabelFor(model => model.Province_Name, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Province_Name, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Province_Name, "", new { @class = "text-danger" })
-            </div>
-        </div>*@
-
         <div class="form-group">
             @Html.LabelFor(model => model.City_Code, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -59,13 +51,15 @@
             </div>
         </div>
 
-        @*<div class="form-group">
-            @Html.LabelFor(model => model.City_Name, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.IsActivated, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.City_Name, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.City_Name, "", new { @class = "text-danger" })
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.IsActivated)
+                    @Html.ValidationMessageFor(model => model.IsActivated, "", new { @class = "text-danger" })
+                </div>
             </div>
-        </div>*@
+        </div> 
 
         <div class="form-group modal-footer">
             <div class="col-md-offset-2 col-md-10">
@@ -100,7 +94,8 @@
             Name: $("#Name").val(),
             Address: $("#Address").val(),
             Province_Code: $("#Province_Code").val(),
-            City_Code: $("#City_Code").val()
+            City_Code: $("#City_Code").val(),
+            IsActivated: $("#IsActivated").is(":checked")
         };
         //alert(JSON.stringify(item));
         $.ajax({
@@ -111,7 +106,8 @@
                 if (result.success) {
                     $("#modal-form").modal("hide");
                     ShowList();
-                    alert("Save Succesful");
+                    SuccessSaved();
+                    //alert("Save Succesful");
                 } else {
                     alert('Error: ' + result.message);
                 }

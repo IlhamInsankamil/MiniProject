@@ -20,14 +20,23 @@
         <dd>
             @Html.DisplayFor(model => model.Name)
         </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsActivated)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsActivated)
+        </dd>
+
     </dl>
 
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
 
-        <div class="form-actions no-color">
-            <button type="button" value="Delete" class="btn btn-warning btn-delete-conf" data-id="@Model.Id">Delete</button>
+        <div class="form-actions no-color modal-footer">
+            <button type="button" value="Delete" class="btn btn-primary btn-delete-conf" data-id="@Model.Id">Delete</button>
             <button type="button" value="Cancel" class="btn btn-default" data-dismiss="modal">Cancel</button>
         </div>
     }

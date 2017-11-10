@@ -9,13 +9,17 @@ namespace BuahSayur.DataModel
     [Table("Customer")]
     public partial class Customer
     {
+        public Customer()
+        {
+            DeliveryOrders = new HashSet<DeliveryOrder>();
+        }
+
         public int Id { get; set; }
 
         [Required]
         [StringLength(50)]
         public string FirstName { get; set; }
 
-        [Required]
         [StringLength(50)]
         public string LastName { get; set; }
 
@@ -31,6 +35,8 @@ namespace BuahSayur.DataModel
         [StringLength(10)]
         public string City_Code { get; set; }
 
+        public bool IsActivated { get; set; }
+
         public DateTime? Created { get; set; }
 
         [StringLength(50)]
@@ -42,5 +48,7 @@ namespace BuahSayur.DataModel
         public string ModifiedBy { get; set; }
 
         public virtual City City { get; set; }
+
+        public virtual ICollection<DeliveryOrder> DeliveryOrders { get; set; }
     }
 }

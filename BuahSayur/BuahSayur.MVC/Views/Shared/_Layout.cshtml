@@ -10,16 +10,16 @@
         .background-kamil {
             background-image: url('../../Content/images/food_web-900x448.jpg');
             background-size: cover;
-            display: block;
-            filter: blur(10px) opacity(70%);
-            -webkit-filter: blur(10px) opacity(70%);
+            /*display: block;*/
+            filter: blur(10px) opacity(80%);
+            -webkit-filter: blur(10px) opacity(80%);
             height: 800px;
             left: 0;
             position: fixed;
             right: 0;
             z-index: -1;
         }
-    </style>
+    </style>    
 </head>
 <body>
     <div class="background-kamil"></div>
@@ -78,5 +78,8 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.12/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.12/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.12/js/dataTables.bootstrap.min.js"></script>
 </body>
 </html>

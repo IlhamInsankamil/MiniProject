@@ -40,6 +40,16 @@
             </div>
         </div>
 
+        <div class="form-group">
+            @Html.LabelFor(model => model.IsActivated, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.IsActivated)
+                    @Html.ValidationMessageFor(model => model.IsActivated, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
         <div class="form-group modal-footer">
             <div class="col-md-offset-2 col-md-10">
                 <input type="button" value="Create" class="btn btn-primary btn-create-conf" />
@@ -59,7 +69,7 @@
             Province_Code: $("#Province_Code").val(),
             Name: $("#Name").val(),
             PostalCode: $("#PostalCode").val(),
-
+            IsActivated: $("#IsActivated").is(":checked")
         };
         //alert(JSON.stringify(item));
         $.ajax({
@@ -76,3 +86,4 @@
             }
         });
     });
+</script>

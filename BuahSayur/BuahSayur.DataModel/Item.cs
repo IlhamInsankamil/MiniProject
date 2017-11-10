@@ -9,6 +9,12 @@ namespace BuahSayur.DataModel
     [Table("Item")]
     public partial class Item
     {
+        public Item()
+        {
+            DeliveryOrderDetails = new HashSet<DeliveryOrderDetail>();
+            PurchasingOrderDetails = new HashSet<PurchasingOrderDetail>();
+        }
+
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
@@ -29,6 +35,12 @@ namespace BuahSayur.DataModel
 
         public decimal Stock { get; set; }
 
+        public decimal Weight { get; set; }
+
+        public decimal Size { get; set; }
+
+        public bool IsActivated { get; set; }
+
         public DateTime? Created { get; set; }
 
         [StringLength(50)]
@@ -38,5 +50,9 @@ namespace BuahSayur.DataModel
 
         [StringLength(50)]
         public string ModifiedBy { get; set; }
+
+        public virtual ICollection<DeliveryOrderDetail> DeliveryOrderDetails { get; set; }
+
+        public virtual ICollection<PurchasingOrderDetail> PurchasingOrderDetails { get; set; }
     }
 }

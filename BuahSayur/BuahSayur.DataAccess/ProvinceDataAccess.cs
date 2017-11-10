@@ -24,6 +24,7 @@ namespace BuahSayur.DataAccess
                               Id = p.Id,
                               Code = p.Code,
                               Name = p.Name,
+                              IsActivated = p.IsActivated
                           }).ToList();
             }
 
@@ -43,6 +44,7 @@ namespace BuahSayur.DataAccess
                         {
                             Code = model.Code,
                             Name = model.Name,
+                            IsActivated = model.IsActivated,
                             Created = DateTime.Now,
                             CreatedBy = "Hasan",
 
@@ -57,6 +59,7 @@ namespace BuahSayur.DataAccess
                         {
                             province.Code = model.Code;
                             province.Name = model.Name;
+                            province.IsActivated = model.IsActivated;
                             province.Modified = DateTime.Now;
                             province.ModifiedBy = "Hasan";
                             db.SaveChanges();
@@ -106,6 +109,7 @@ namespace BuahSayur.DataAccess
                               Id = p.Id,
                               Code = p.Code,
                               Name = p.Name,
+                              IsActivated = p.IsActivated
                           }).FirstOrDefault();
             }
             return result;

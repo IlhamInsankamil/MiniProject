@@ -31,7 +31,7 @@ namespace BuahSayur.ViewModel
         public string City_Name { get; set; }
 
         [DisplayName("Address")]
-        public string FullAddress // not in create
+        public string FullAddress 
         {
             get
             {
@@ -40,6 +40,8 @@ namespace BuahSayur.ViewModel
                     + (!string.IsNullOrEmpty(Province_Name) ? Province_Name + " " : "").ToString();
             }
         }
+
+        public bool IsActivated { get; set; }
 
         public DateTime? Created { get; set; }
 

@@ -50,6 +50,32 @@
         </div>
 
         <div class="form-group">
+            @Html.LabelFor(model => model.Weight, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Weight, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Weight, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Size, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Size, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Size, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.IsActivated, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.IsActivated)
+                    @Html.ValidationMessageFor(model => model.IsActivated, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
             <div class="modal-footer">
                 <input type="button" value="Create" class="btn btn-primary btn-create-conf" />
                 <input type="button" value="Cancel" class="btn btn-default" data-dismiss="modal" />
@@ -71,8 +97,9 @@
             Price: $("#Price").val(),
             Category: $("input[name=Category]:checked").val(),
             Stock: $("#Stock").val(),
-            Created: $("#Created").val(),
-            CreatedBy: $("#CreatedBy").val()
+            Weight: $("#Weight").val(),
+            Size: $("#Size").val(),
+            IsActivated: $("#IsActivated").is(":checked")
         };
         //alert(JSON.stringify(item));
         $.ajax({

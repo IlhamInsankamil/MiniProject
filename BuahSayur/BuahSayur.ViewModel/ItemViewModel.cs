@@ -41,6 +41,12 @@ namespace BuahSayur.ViewModel
         [DisplayName("Stock (pack)"), DisplayFormat(DataFormatString = "{0:0}")]
         public decimal Stock { get; set; }
 
+        public decimal Weight { get; set; }
+
+        public decimal Size { get; set; }
+
+        public bool IsActivated { get; set; }
+
         [DisplayName("Created"), DisplayFormat(DataFormatString = "{0:dd MMM yyyy}")]
         public DateTime? Created { get; set; }
         

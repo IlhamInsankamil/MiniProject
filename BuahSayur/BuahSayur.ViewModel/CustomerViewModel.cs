@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,7 +25,9 @@ namespace BuahSayur.ViewModel
         public string Address { get; set; }
 
         [DisplayName("Phone Number")]
+        [RegularExpression(@"^\d[0-9]{9,12}$", ErrorMessage = "Please enter only number up to 12 digits")]
         public string PhoneNumber { get; set; }
+
         [DisplayName("Province")]
         public string Province_Code { get; set; }
 
@@ -47,6 +50,8 @@ namespace BuahSayur.ViewModel
                     + (!string.IsNullOrEmpty(Province_Name) ? Province_Name + " " : "").ToString();
             }
         }
+
+        public bool IsActivated { get; set; }
 
         public DateTime? Created { get; set; }
 

@@ -9,6 +9,11 @@ namespace BuahSayur.DataModel
     [Table("Supplier")]
     public partial class Supplier
     {
+        public Supplier()
+        {
+            PurchasingOrders = new HashSet<PurchasingOrder>();
+        }
+
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
@@ -28,6 +33,8 @@ namespace BuahSayur.DataModel
         [StringLength(10)]
         public string City_Code { get; set; }
 
+        public bool IsActivated { get; set; }
+
         public DateTime? Created { get; set; }
 
         [StringLength(50)]
@@ -39,5 +46,7 @@ namespace BuahSayur.DataModel
         public string ModifiedBy { get; set; }
 
         public virtual City City { get; set; }
+
+        public virtual ICollection<PurchasingOrder> PurchasingOrders { get; set; }
     }
 }

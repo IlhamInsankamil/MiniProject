@@ -26,7 +26,10 @@ namespace BuahSayur.DataAccess
                               Name = i.Name,
                               Price = i.Price,
                               Category = i.Category,
-                              Stock = i.Stock
+                              Stock = i.Stock,
+                              Weight = i.Weight,
+                              Size = i.Size,
+                              IsActivated = i.IsActivated
                           }).ToList();
             }
 
@@ -48,7 +51,10 @@ namespace BuahSayur.DataAccess
                               Name = i.Name,
                               Price = i.Price,
                               Category = i.Category,
-                              Stock = i.Stock
+                              Stock = i.Stock,
+                              Weight = i.Weight,
+                              Size = i.Size,
+                              IsActivated = i.IsActivated
                           }).FirstOrDefault();
             }
             return result;
@@ -70,6 +76,9 @@ namespace BuahSayur.DataAccess
                             Price = model.Price,
                             Category = model.Category,
                             Stock = model.Stock,
+                            Weight = model.Weight,
+                            Size = model.Size,
+                            IsActivated = model.IsActivated,
                             Created = DateTime.Now,
                             CreatedBy = "Ilham",
 
@@ -87,6 +96,9 @@ namespace BuahSayur.DataAccess
                             item.Price = model.Price;
                             item.Category = model.Category;
                             item.Stock = model.Stock;
+                            item.Weight = model.Weight;
+                            item.Size = model.Size;
+                            item.IsActivated = model.IsActivated;
                             item.Modified = DateTime.Now;
                             item.ModifiedBy = "Ilham";
                             db.SaveChanges();

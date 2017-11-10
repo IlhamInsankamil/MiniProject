@@ -28,7 +28,8 @@ namespace BuahSayur.DataAccess
                               Province_Code = ct.Province_Code,
                               ProvinceName = p.Name,
                               Name = ct.Name,
-                              PostalCode = ct.PostalCode
+                              PostalCode = ct.PostalCode,
+                              IsActivated = ct.IsActivated
                           }).ToList();
             }
 
@@ -45,13 +46,14 @@ namespace BuahSayur.DataAccess
                     {
                         City city = new City
                         {
+                            Id = model.Id,
                             Code = model.Code,
                             Province_Code = model.Province_Code,
                             Name = model.Name,
                             PostalCode = model.PostalCode,
+                            IsActivated = model.IsActivated,
                             Created = DateTime.Now,
-                            CreatedBy = "Hasan",
-
+                            CreatedBy = "Hasan"
                         };
                         db.Cities.Add(city);
                         db.SaveChanges();
@@ -62,10 +64,12 @@ namespace BuahSayur.DataAccess
                         City city = db.Cities.Where(o => o.Id == model.Id).FirstOrDefault();
                         if (city != null)
                         {
+                            city.Id= model.Id;
                             city.Code = model.Code;
                             city.Province_Code = model.Province_Code;
                             city.Name = model.Name;
                             city.PostalCode = model.PostalCode;
+                            city.IsActivated = model.IsActivated;
                             city.Modified = DateTime.Now;
                             city.ModifiedBy = "Hasan";
                             db.SaveChanges();
@@ -96,7 +100,8 @@ namespace BuahSayur.DataAccess
                               Province_Code = ct.Province_Code,
                               ProvinceName = p.Name,
                               Name = ct.Name,
-                              PostalCode = ct.PostalCode
+                              PostalCode = ct.PostalCode,
+                              IsActivated = ct.IsActivated
                           }).FirstOrDefault();
             }
             return result;
@@ -123,6 +128,7 @@ namespace BuahSayur.DataAccess
             }
             return result;
         }
+
         public static List<CityViewModel> GetByProvince(string provinceCode)
         {
             List<CityViewModel> result = new List<CityViewModel>();
@@ -139,7 +145,8 @@ namespace BuahSayur.DataAccess
                               Code = ct.Code,
                               Province_Code = ct.Province_Code,
                               Name = ct.Name,
-                              PostalCode = ct.PostalCode
+                              PostalCode = ct.PostalCode,
+                              IsActivated = ct.IsActivated
                           }).ToList();
             }
             return result;

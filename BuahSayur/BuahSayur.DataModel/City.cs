@@ -34,6 +34,8 @@ namespace BuahSayur.DataModel
         [StringLength(10)]
         public string PostalCode { get; set; }
 
+        public bool IsActivated { get; set; }
+
         public DateTime? Created { get; set; }
 
         [StringLength(50)]

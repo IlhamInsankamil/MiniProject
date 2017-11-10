@@ -31,7 +31,8 @@ namespace BuahSayur.DataAccess
                               Province_Code = pr.Code,
                               Province_Name = pr.Name,
                               City_Code = ct.Code,
-                              City_Name = ct.Name
+                              City_Name = ct.Name,
+                              IsActivated = ct.IsActivated
                           }).ToList();
             }
             return result;
@@ -60,7 +61,8 @@ namespace BuahSayur.DataAccess
                               Province_Code = pr.Code,
                               Province_Name = pr.Name,
                               City_Code = ct.Code,
-                              City_Name = ct.Name
+                              City_Name = ct.Name,
+                              IsActivated = ct.IsActivated
                           }).FirstOrDefault();
             }
             return result;
@@ -77,10 +79,11 @@ namespace BuahSayur.DataAccess
                         Customer customer = new Customer
                         {
                             FirstName = model.FirstName,
-                            LastName = model.LastName,                            
+                            LastName = model.LastName,
                             Address = model.Address,
                             PhoneNumber = model.PhoneNumber,
                             City_Code = model.City_Code,
+                            IsActivated = model.IsActivated,
                             Created = DateTime.Now,
                             CreatedBy = "Hasan"
                         };
@@ -93,10 +96,11 @@ namespace BuahSayur.DataAccess
                         if (customer != null)
                         {
                             customer.FirstName = model.FirstName;
-                            customer.LastName = model.LastName;                            
+                            customer.LastName = model.LastName;
                             customer.Address = model.Address;
                             customer.PhoneNumber = model.PhoneNumber;
                             customer.City_Code = model.City_Code;
+                            customer.IsActivated = model.IsActivated;
                             customer.Modified = DateTime.Now;
                             customer.ModifiedBy = "Hasan";
                             db.SaveChanges();

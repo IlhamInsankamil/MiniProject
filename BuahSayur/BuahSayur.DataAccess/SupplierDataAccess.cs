@@ -32,7 +32,8 @@ namespace BuahSayur.DataAccess
                               Province_Code = p.Code,
                               Province_Name = p.Name,
                               City_Code = c.Code,
-                              City_Name = c.Name
+                              City_Name = c.Name,
+                              IsActivated = c.IsActivated
                           }).ToList();
             }
 
@@ -62,11 +63,8 @@ namespace BuahSayur.DataAccess
                               Province_Code = p.Code,
                               Province_Name = p.Name,
                               City_Code = c.Code,
-                              City_Name = c.Name
-                              //Created = s.Created,
-                              //CreatedBy = s.CreatedBy,
-                              //Modified = s.Modified,
-                              //ModifiedBy = s.ModifiedBy
+                              City_Name = c.Name,
+                              IsActivated = c.IsActivated
                           }).FirstOrDefault();
             }
             return result;
@@ -87,6 +85,7 @@ namespace BuahSayur.DataAccess
                             Name = model.Name,
                             Address = model.Address,
                             City_Code = model.City_Code,
+                            IsActivated = model.IsActivated,
                             Created = DateTime.Now,
                             CreatedBy = "Ilham"
                         };
@@ -102,6 +101,7 @@ namespace BuahSayur.DataAccess
                             supplier.Name = model.Name;
                             supplier.Address = model.Address;
                             supplier.City_Code = model.City_Code;
+                            supplier.IsActivated = model.IsActivated;
                             supplier.Modified = DateTime.Now;
                             supplier.ModifiedBy = "Ilham";
                             db.SaveChanges();
