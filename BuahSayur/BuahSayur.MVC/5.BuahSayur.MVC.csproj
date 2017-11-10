@@ -191,17 +191,11 @@
     <Content Include="Views\Province\List.cshtml" />
     <Content Include="Views\Item\Index.cshtml" />
     <Content Include="Views\Item\List.cshtml" />
-    <Content Include="Views\Province\Create.cshtml" />
-    <Content Include="Views\Province\Edit.cshtml" />
-    <Content Include="Views\Province\Delete.cshtml" />
     <Content Include="Views\Item\Create.cshtml" />
     <Content Include="Views\Item\Edit.cshtml" />
     <Content Include="Views\Item\Delete.cshtml" />
     <Content Include="Views\Supplier\Index.cshtml" />
     <Content Include="Views\Supplier\List.cshtml" />
-    <Content Include="Views\Province\Create.cshtml" />
-    <Content Include="Views\Province\Edit.cshtml" />
-    <Content Include="Views\Province\Delete.cshtml" />
     <Content Include="Views\City\Index.cshtml" />
     <Content Include="Views\City\List.cshtml" />
     <Content Include="Views\City\Create.cshtml" />
@@ -216,6 +210,9 @@
     <Content Include="Views\Customer\Create.cshtml" />
     <Content Include="Views\Customer\Edit.cshtml" />
     <Content Include="Views\Customer\Delete.cshtml" />
+    <Content Include="Views\Province\Create.cshtml" />
+    <Content Include="Views\Province\Edit.cshtml" />
+    <Content Include="Views\Province\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
