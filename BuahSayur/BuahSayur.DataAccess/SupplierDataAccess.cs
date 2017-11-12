@@ -139,5 +139,65 @@ namespace BuahSayur.DataAccess
             }
             return result;
         }
+
+        public static SupplierViewModel GetByCode(string code)
+        {
+            SupplierViewModel result = new SupplierViewModel();
+
+            using (var db = new BuahSayurContext())
+            {
+                result = (from s in db.Suppliers
+                          join c in db.Cities
+                            on s.City_Code equals c.Code into clf
+                          from c in clf.DefaultIfEmpty()
+                          join p in db.Provinces
+                            on c.Province_Code equals p.Code into plf
+                          from p in plf.DefaultIfEmpty()
+                          where s.Code == code
+                          select new SupplierViewModel
+                          {
+                              Id = s.Id,
+                              Code = s.Code,
+                              Name = s.Name,
+                              Province_Code = p.Code,
+                              Province_Name = p.Name,
+                              City_Code = c.Code,
+                              City_Name = c.Name,
+                              Address = s.Address,
+                              IsActivated = s.IsActivated
+                          }).FirstOrDefault();
+            }
+            return result;
+        }
+
+        public static List<SupplierViewModel> GetByFilter(string filterString)
+        {
+            List<SupplierViewModel> result = new List<SupplierViewModel>();
+
+            using (var db = new BuahSayurContext())
+            {
+                result = (from s in db.Suppliers
+                          join c in db.Cities
+                            on s.City_Code equals c.Code
+                          join p in db.Provinces
+                            on c.Province_Code equals p.Code
+                          select new SupplierViewModel
+                          {
+                              Id = s.Id,
+                              Code = s.Code,
+                              Name = s.Name,
+                              Province_Code = p.Code,
+                              Province_Name = p.Name,
+                              City_Code = c.Code,
+                              City_Name = c.Name,
+                              Address = s.Address,
+                              IsActivated = s.IsActivated
+                          }).ToList();
+
+                result = result.Where(o => o.Code.Contains(filterString.ToUpper()) || o.Name.Contains(filterString) || o.FullAddress.Contains(filterString.ToUpper())).ToList();
+            }
+
+            return result;
+        }
     }
 }

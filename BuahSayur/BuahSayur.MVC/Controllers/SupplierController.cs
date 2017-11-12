@@ -93,5 +93,23 @@ namespace BuahSayur.MVC.Controllers
                 return Json(new { success = false, message = SupplierDataAccess.Message }, JsonRequestBehavior.AllowGet);
             }
         }
+
+        public ActionResult GetSupplierByCode(string code)
+        {
+            SupplierViewModel model = SupplierDataAccess.GetByCode(code);
+            if (model != null)
+            {
+                return Json(new { success = true, data = model }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(new { success = false }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public ActionResult FilterList(string filterString)
+        {
+            return View(SupplierDataAccess.GetByFilter(filterString));
+        }
     }
 }

@@ -20,17 +20,21 @@ namespace BuahSayur.DataAccess
             {
                 using (var db = new BuahSayurContext())
                 {
+                    string newRef = GetNewReference();
+                    result.Reference = newRef;
+
                     PurchasingOrder purchasingOrder = new PurchasingOrder
                     {
                         Id = 1,
                         Supplier_Code = models.Supplier_Code,
+                        Reference = newRef,
                         PurchasingDate = models.PurchasingDate
                     };
                     db.PurchasingOrders.Add(purchasingOrder);
 
                     foreach (var item in models.PurchasingDetails)
                     {
-                        PurchasingOrderDetail sellingDetail = new PurchasingOrderDetail
+                        PurchasingOrderDetail purchasingDetail = new PurchasingOrderDetail
                         {
                             PurchasingOrder_Id = purchasingOrder.Id,
                             Item_Code = item.Item_Code,
@@ -39,7 +43,7 @@ namespace BuahSayur.DataAccess
                             Total = item.Quantity * item.Price
                         };
                         result.Total += (item.Quantity * item.Price);
-                        db.PurchasingOrderDetails.Add(sellingDetail);
+                        db.PurchasingOrderDetails.Add(purchasingDetail);
                     }
                     db.SaveChanges();
                 }
@@ -49,6 +53,38 @@ namespace BuahSayur.DataAccess
                 result.Success = false;
                 Message = ex.Message;
             }
+            return result;
+        }
+
+        public static string GetNewReference()
+        {
+            string result = string.Empty;
+
+            try
+            {
+                using (var db = new BuahSayurContext())
+                {
+                    var refTemplate = "PO-" + (DateTime.Now).ToString("yy") + string.Format("{0:00}", DateTime.Now.Month) + "-";
+
+                    var lastRef = (from po in db.PurchasingOrders
+                                   where po.Reference.Contains(refTemplate)
+                                   select new { Id = po.Id, Reference = po.Reference }).OrderByDescending(o => o.Reference).FirstOrDefault();
+
+                    int increment = 1;
+                    if (lastRef != null)
+                    {
+                        string[] splitRef = lastRef.Reference.Split('-');
+                        increment = int.Parse(splitRef[2]) + 1;
+                    }
+                    result = refTemplate + increment.ToString("D4");
+                }
+            }
+            catch (Exception ex)
+            {
+                //Message = ex.Message;
+                throw;
+            }
+
             return result;
         }
     }

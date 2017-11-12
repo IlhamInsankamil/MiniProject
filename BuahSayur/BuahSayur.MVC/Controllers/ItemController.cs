@@ -86,5 +86,24 @@ namespace BuahSayur.MVC.Controllers
                 return Json(new { success = false, message = ItemDataAccess.Message }, JsonRequestBehavior.AllowGet);
             }
         }
+
+        public ActionResult ExceptionList(List<string> exceptionList) // display item by exception
+        {
+            return View(ItemDataAccess.GetByException(exceptionList));
+        }
+
+        public ActionResult GetById(int id) // for select item
+        {
+            ItemViewModel model = ItemDataAccess.GetById(id);
+
+            if (model != null)
+            {
+                return Json(new { success = true, data = model, message = "Success" }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(new { success = false, data = model, message = "Not found!" }, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }

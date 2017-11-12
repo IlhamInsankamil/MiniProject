@@ -1,8 +1,252 @@
-﻿
-@{
-    ViewBag.Title = "Index";
+﻿@{
+    ViewBag.Title = "Purchasing Point";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<div class="well">
+    <h2>@ViewBag.Title</h2>
+</div>
+<div class="panel-group">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <div class="row">
+                <div class="col-md-3">
+                    <input id="txt-search" type="text" class="form-control" placeholder="Input Supplier Code" />
+                </div>
+                <div class="col-md-2">
+                    <button type="button" id="btn-add" class="btn btn-search btn-primary" title="Search Supplier">
+                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span> Search Supplier
+                    </button>
+                </div>
+                <div class="col-md-4">
+                    <button type="button" id="btn-new" class="btn btn-twitter" title="New Transaction" onclick="window.location.href='@Url.Action("Index", "Purchasing")'">
+                        New Transaction
+                    </button>
+                </div>
+                <div class="col-lg-3">
+                    <h6>Ref. Code: <span id="reference-code">No Reference</span></h6>
+                </div>
+            </div>
+        </div>
+        <div class="panel-body">
+            <div id="employee-info">
+                @Html.Partial("SupplierForm")
+            </div>
+        </div>
+    </div>
+</div>
 
+<div id="modal-form" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="panel-group">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class=" modal-body panel-body">
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<div class="panel-group">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <button type="button" class="btn btn-primary btn-add-item">
+                Add Item
+            </button>
+            <button type="button" class="btn btn-success btn-save-items">
+                Save Purchasing
+            </button>
+        </div>
+        <div class=" selling-list">
+            @Html.Action("PurchasingList", "Purchasing")
+        </div>
+    </div>
+
+</div>
+
+
+
+@section Scripts
+{
+    <script type="text/javascript">
+        //$('.datepicker').datepicker({ format: "dd M yyyy" });
+
+        // Search and Select Supplier
+        $('.btn-search').click(function () {
+            SelectSupplier($('#txt-search').val());
+        });
+
+        function SelectSupplier(code) {
+            $.ajax({
+                url: '@Url.Action("GetSupplierByCode", "Supplier")',
+                type: 'get',
+                data: { code: code },
+                success: function (result) {
+                    if (result.success) {
+                        var spl = result.data;
+                        $("#Code").val(spl.Code);
+                        $("#Name").val(spl.Name);
+                        $("#FullAddress").val(spl.FullAddress);
+                    }
+                    else {
+                        //alert('Error or not found!');
+                        SupplierList();
+                    }
+                }
+            });
+        }
+
+        function SupplierList() {
+            $.ajax({
+                url: '@Url.Action("FilterList","Supplier")',
+                type: 'get',
+                data: { filterString: $('#txt-search').val() },
+                success: function (result) {
+                    $(".modal-body").html(result);
+                    $("#modal-form").modal("show");
+                }
+            });
+        }
+
+        /// ----- ///
+        $('.btn-add-item').click(function () {
+            if ($("#Code").val().length > 0) {
+                var itemList = [''];
+
+                $("input[name=Item_Code]").each(function () {
+                    itemList.push($(this).val());
+                });
+
+                $.ajax({
+                    url: '@Url.Action("ExceptionList", "Item")',
+                    data: { exceptionList: itemList },
+                    type: 'get',
+                    traditional: true,
+                    success: function (result) {
+                        $(".modal-body").html(result);
+                        $("#modal-form").modal("show");
+                    }
+                });
+            } else {
+                alert('No Supplier Selected!');
+            }
+        });
+
+        function SelectItem(itemId) {
+            $.ajax({
+                url: '@Url.Action("GetById", "Item")',
+                type: 'get',
+                data: { id: itemId },
+                success: function (result) {
+                    if (result.success) {
+                        var dataItem = result.data;
+                        var item = '<tr>' +
+                            '<td><input type="text" name="Item_Code" value="' + dataItem.Code + '" class="form-control" disabled/></td >' +
+                            '<td><input type="text" name="Item_Name" value="' + dataItem.Name + '" class="form-control" disabled /></td>' +
+                            '<td><input type="text" name="Item_Weight" value="' + dataItem.Weight + '" class="form-control" disabled /></td>' +
+                            '<td><input type="text" name="Quantity" onkeyup="QuantityUpdate(this);" value="0.00" class="form-control"/></td>' +
+                            '<td><input type="text" name="Price" value="' + dataItem.Price + '" class="form-control"/></td>' +
+                            '<td><input type="text" name="Total" value="0.00" class="form-control" disabled/></td>' +
+                            '<td><button type="button" class="btn btn-danger btn-remove" onclick="RemoveItem(this)">Remove</button></td></tr>';
+
+                        $('#purchasing-item-list').append(item);
+                    }
+                    else {
+                        //alert('Error or not found!');
+                        alert('Error or not found: ' + result.message);
+                    }
+                }
+            });
+        }
+
+        $('.btn-save-items').click(function () {
+            var vPurchasingDetails = [];
+            var vSupplier_Code = $("#Code").val();
+            var vPurchasingDate = $("#PurchasingDate").val();
+            var vItem = 0;
+
+            $("#purchasing-item-list").find("tr").each(function () {
+                vItem = vItem + 1;
+                var vItem_Code = $(this).find("input[name=Item_Code]").val();
+                var vQuantity = $(this).find("input[name=Quantity]").val();
+                var vPrice = $(this).find("input[name=Price]").val();
+                var vTotal = $(this).find("input[name=Total]").val();
+                var vDetail = { Item_Code: vItem_Code, Quantity: vQuantity, Price: vPrice, Total: vTotal };
+                vPurchasingDetails.push(vDetail);
+            });
+
+            //alert(JSON.stringify(vPurchasingDetails));
+
+            if (vItem > 0) {
+                var vHeaderDetail = { Id: 0, Supplier_Code: vSupplier_Code, PurchasingDate: vPurchasingDate, PurchasingDetails: vPurchasingDetails };
+
+                //alert(JSON.stringify(vHeaderDetail));
+
+                $.ajax({
+                    url: '@Url.Action("SavePurchasing", "Purchasing")',
+                    data: { models: vHeaderDetail },
+                    type: 'post',
+                    success: function (result) {
+                        if (result.success) {
+                            alert('Save Successful');
+                            $('#purchasing-total').html(result.data.Total);
+                            $('#reference-code').html(result.data.Reference);
+                            $('.btn-save-items').prop('disabled', true);
+                            $('.btn-add-item').prop('disabled', true);
+                            $('input[name=Quantity]').prop('disabled', true);
+                            $('.btn-remove').prop('disabled', true);
+
+                            //$('#purchasing-item-list').html('');
+                        }
+                        else {
+                            alert('Error: ' + result.message);
+                        }
+                    }
+                });
+            } else {
+                alert('Warning: No item selected!');
+            }
+        });
+
+        function QuantityUpdate(obj) {
+            //alert($(obj).val());
+            var qty = $(obj).val();
+            var prc = $(obj).closest('tr').find('input[name=Price]').val();
+            var total = qty * prc;
+
+            $(obj).closest('tr').find('input[name=Total]').val(total);
+            var grdTotal = 0;
+
+            $("#purchasing-item-list").find("tr").each(function () {
+                var vTotal = $(this).find("input[name=Total]").val();
+                grdTotal = parseFloat(grdTotal) + parseFloat(vTotal);
+            });
+
+            $("#purchasing-total").html(grdTotal);
+        }
+
+        function RemoveItem(obj) {
+            //$(obj).closest('tr').remove();
+            var vItem_Name = $(obj).closest('tr').find('input[name=Item_Name]').val();
+            var vItem_Weight = $(obj).closest('tr').find('input[name=Item_Weight]').val();
+
+            var remove = confirm("Sure you don't want to supply " + vItem_Weight + " Kg " + vItem_Name + "?");
+            if (remove) {
+                $(obj).closest('tr').remove();
+            }
+
+            //$("#purchasing-total").find("h3").each(function () {
+            //    var vTotal = $(this).find("input[name=Total]").val();
+            //    grdTotal = parseFloat(grdTotal) + parseFloat(vTotal);
+            //});
+        }
+    </script>
+}

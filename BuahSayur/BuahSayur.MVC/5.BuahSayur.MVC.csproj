@@ -215,7 +215,10 @@
     <Content Include="Views\Province\Edit.cshtml" />
     <Content Include="Views\Province\Delete.cshtml" />
     <Content Include="Views\Purchasing\Index.cshtml" />
-    <Content Include="Views\Purchasing\CustomerForm.cshtml" />
+    <Content Include="Views\Purchasing\SupplierForm.cshtml" />
+    <Content Include="Views\Purchasing\PurchasingList.cshtml" />
+    <Content Include="Views\Supplier\FilterList.cshtml" />
+    <Content Include="Views\Item\ExceptionList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
