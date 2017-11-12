@@ -82,6 +82,11 @@
 @section Scripts
 {
     <script type="text/javascript">
+        //$('#Name').prop('readonly', true);
+        //$('#Name').prop('cols', '40');
+        $('#FullAddress').prop('readonly', true);
+        $('#FullAddress').prop('cols', '40');
+
         function SuccessCreated() {
             $("#success-create").fadeTo(3000, 500).slideUp(500, function () {
                 $("#success-create").slideUp(500);
@@ -259,10 +264,19 @@
                 $(obj).closest('tr').remove();
             }
 
-            //$("#purchasing-total").find("h3").each(function () {
-            //    var vTotal = $(this).find("input[name=Total]").val();
-            //    grdTotal = parseFloat(grdTotal) + parseFloat(vTotal);
-            //});
+            var qty = $(obj).closest('tr').find('input[name=Quantity]').val();
+            var prc = $(obj).closest('tr').find('input[name=Price]').val();
+            var total = qty * prc;
+
+            $(obj).closest('tr').find('input[name=Total]').val(total);
+            var grdTotal = 0;
+
+            $("#purchasing-item-list").find("tr").each(function () {
+                var vTotal = $(this).find("input[name=Total]").val();
+                grdTotal = parseFloat(grdTotal) + parseFloat(vTotal);
+            });
+
+            $("#purchasing-total").html(grdTotal);
         }
-    </script>
+</script>
 }

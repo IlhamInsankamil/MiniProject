@@ -21,7 +21,7 @@ namespace BuahSayur.DataModel
         public string Customer_Username { get; set; }
 
         [Required]
-        [StringLength(10)]
+        [StringLength(15)]
         public string Reference { get; set; }
 
         public DateTime SellingDate { get; set; }
