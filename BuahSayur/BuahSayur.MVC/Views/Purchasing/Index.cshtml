@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Purchasing Point";
+    ViewBag.Title = "Purchasing Order";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -29,7 +29,7 @@
             </div>
         </div>
         <div class="panel-body">
-            <div id="employee-info">
+            <div id="supplier-info">
                 @Html.Partial("SupplierForm")
             </div>
         </div>
@@ -54,6 +54,11 @@
     </div>
 </div>
 
+<div class="alert alert-success" id="success-create" hidden>
+    <button type="button" class="close" data-dismiss="alert">x</button>
+    <strong>Success! </strong>
+    New Purchasing Order added successfully. Reference Code: <span id="reference-code">No Reference</span>
+</div>
 
 <div class="panel-group">
     <div class="panel panel-default">
@@ -77,7 +82,17 @@
 @section Scripts
 {
     <script type="text/javascript">
-        //$('.datepicker').datepicker({ format: "dd M yyyy" });
+        function SuccessCreated() {
+            $("#success-create").fadeTo(3000, 500).slideUp(500, function () {
+                $("#success-create").slideUp(500);
+            });
+        }
+
+        $('.datepicker').datetimepicker({
+            format: "ddd, DD/MM/YYYY",
+            defaultDate: Date.now(),
+            minDate: moment().millisecond(0).second(0).minute(0).hour(0) // enable today's date and set mindate as this date (moment)
+        });
 
         // Search and Select Supplier
         $('.btn-search').click(function () {
@@ -196,15 +211,16 @@
                     type: 'post',
                     success: function (result) {
                         if (result.success) {
-                            alert('Save Successful');
+                            SuccessCreated();
                             $('#purchasing-total').html(result.data.Total);
                             $('#reference-code').html(result.data.Reference);
+                            $('input[name=PurchasingDate]').prop('disabled', true);
+                            $('#txt-search').prop('disabled', true);
+                            $('.btn-search').prop('disabled', true);
                             $('.btn-save-items').prop('disabled', true);
                             $('.btn-add-item').prop('disabled', true);
                             $('input[name=Quantity]').prop('disabled', true);
                             $('.btn-remove').prop('disabled', true);
-
-                            //$('#purchasing-item-list').html('');
                         }
                         else {
                             alert('Error: ' + result.message);

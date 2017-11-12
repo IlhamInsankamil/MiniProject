@@ -194,7 +194,7 @@ namespace BuahSayur.DataAccess
                               IsActivated = s.IsActivated
                           }).ToList();
 
-                result = result.Where(o => o.Code.Contains(filterString.ToUpper()) || o.Name.Contains(filterString) || o.FullAddress.Contains(filterString.ToUpper())).ToList();
+                result = result.Where(o => o.Code.ToLower().Contains(filterString.ToLower()) || o.Name.ToLower().Contains(filterString.ToLower()) || o.FullAddress.ToLower().Contains(filterString.ToLower())).ToList();
             }
 
             return result;
