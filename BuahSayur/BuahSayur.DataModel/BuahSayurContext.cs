@@ -61,6 +61,10 @@ namespace BuahSayur.DataModel
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Customer>()
+                .Property(e => e.Username)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Customer>()
                 .Property(e => e.FirstName)
                 .IsUnicode(false);
 
@@ -91,8 +95,12 @@ namespace BuahSayur.DataModel
             modelBuilder.Entity<Customer>()
                 .HasMany(e => e.DeliveryOrders)
                 .WithRequired(e => e.Customer)
-                .HasForeignKey(e => e.Customer_Id)
+                .HasForeignKey(e => e.Customer_Username)
                 .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<DeliveryOrder>()
+                .Property(e => e.Customer_Username)
+                .IsUnicode(false);
 
             modelBuilder.Entity<DeliveryOrder>()
                 .Property(e => e.Reference)
@@ -118,7 +126,7 @@ namespace BuahSayur.DataModel
 
             modelBuilder.Entity<DeliveryOrderDetail>()
                 .Property(e => e.Quantity)
-                .HasPrecision(18, 0);
+                .HasPrecision(18, 4);
 
             modelBuilder.Entity<DeliveryOrderDetail>()
                 .Property(e => e.Price)
@@ -155,15 +163,15 @@ namespace BuahSayur.DataModel
 
             modelBuilder.Entity<Item>()
                 .Property(e => e.Stock)
-                .HasPrecision(18, 0);
+                .HasPrecision(18, 4);
 
             modelBuilder.Entity<Item>()
                 .Property(e => e.Weight)
-                .HasPrecision(18, 0);
+                .HasPrecision(18, 4);
 
             modelBuilder.Entity<Item>()
                 .Property(e => e.Size)
-                .HasPrecision(18, 0);
+                .HasPrecision(18, 4);
 
             modelBuilder.Entity<Item>()
                 .Property(e => e.CreatedBy)
@@ -235,7 +243,7 @@ namespace BuahSayur.DataModel
 
             modelBuilder.Entity<PurchasingOrderDetail>()
                 .Property(e => e.Quantity)
-                .HasPrecision(18, 0);
+                .HasPrecision(18, 4);
 
             modelBuilder.Entity<PurchasingOrderDetail>()
                 .Property(e => e.Price)

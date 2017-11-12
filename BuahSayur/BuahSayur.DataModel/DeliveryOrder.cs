@@ -16,7 +16,9 @@ namespace BuahSayur.DataModel
 
         public int Id { get; set; }
 
-        public int Customer_Id { get; set; }
+        [Required]
+        [StringLength(10)]
+        public string Customer_Username { get; set; }
 
         [Required]
         [StringLength(10)]

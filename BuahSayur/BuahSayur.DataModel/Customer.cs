@@ -14,7 +14,12 @@ namespace BuahSayur.DataModel
             DeliveryOrders = new HashSet<DeliveryOrder>();
         }
 
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
+
+        [Key]
+        [StringLength(10)]
+        public string Username { get; set; }
 
         [Required]
         [StringLength(50)]
