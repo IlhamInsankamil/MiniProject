@@ -41,12 +41,12 @@
                     <input type="text" name="Item_Weight" value="@item.Item_Weight" class="form-control" disabled />
                     @*@Html.DisplayFor(modelItem => item.Item_Name)*@
                 </td>
-                <td>
+                <td class="warning">
                     <input type="text" name="Quantity" onkeyup="QuantityUpdate(this);" value="@item.Quantity" class="form-control" />
                     @*@Html.DisplayFor(modelItem => item.Quantity)*@
                 </td>
                 <td>
-                    <input type="text" name="Price" value="@item.Price" class="form-control" />
+                    <input type="text" name="Price" value="@item.Price" class="form-control" disabled />
                     @*@Html.DisplayFor(modelItem => item.Price)*@
                 </td>
                 <td>
