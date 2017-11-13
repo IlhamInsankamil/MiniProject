@@ -24,6 +24,7 @@ namespace BuahSayur.DataAccess
                           select new CustomerViewModel
                           {
                               Id = cs.Id,
+                              Username = cs.Username,
                               FirstName = cs.FirstName,
                               LastName = cs.LastName,
                               Address = cs.Address,
@@ -54,6 +55,7 @@ namespace BuahSayur.DataAccess
                           select new CustomerViewModel
                           {
                               Id = cs.Id,
+                              Username = cs.Username,
                               FirstName = cs.FirstName,
                               LastName = cs.LastName,
                               Address = cs.Address,
@@ -78,6 +80,7 @@ namespace BuahSayur.DataAccess
                     {
                         Customer customer = new Customer
                         {
+                            Username = model.Username,
                             FirstName = model.FirstName,
                             LastName = model.LastName,
                             Address = model.Address,
@@ -95,6 +98,7 @@ namespace BuahSayur.DataAccess
                         Customer customer = db.Customers.Where(o => o.Id == model.Id).FirstOrDefault();
                         if (customer != null)
                         {
+                            customer.Username = model.Username;
                             customer.FirstName = model.FirstName;
                             customer.LastName = model.LastName;
                             customer.Address = model.Address;
@@ -135,6 +139,70 @@ namespace BuahSayur.DataAccess
                 Message = ex.Message;
                 result = false;
             }
+            return result;
+        }
+
+        public static CustomerViewModel GetByUsername(string username)
+        {
+            CustomerViewModel result = new CustomerViewModel();
+
+            using (var db = new BuahSayurContext())
+            {
+                result = (from cs in db.Customers
+                          join c in db.Cities
+                            on cs.City_Code equals c.Code into clf
+                          from c in clf.DefaultIfEmpty()
+                          join p in db.Provinces
+                            on c.Province_Code equals p.Code into plf
+                          from p in plf.DefaultIfEmpty()
+                          where cs.Username == username
+                          select new CustomerViewModel
+                          {
+                              Id = cs.Id,
+                              Username = cs.Username,
+                              FirstName = cs.FirstName,
+                              LastName = cs.LastName,
+                              Address = cs.Address,
+                              PhoneNumber = cs.PhoneNumber,
+                              Province_Code = p.Code,
+                              Province_Name = p.Name,
+                              City_Code = c.Code,
+                              City_Name = c.Name,
+                              IsActivated = cs.IsActivated
+                          }).FirstOrDefault();
+            }
+            return result;
+        }
+
+        public static List<CustomerViewModel> GetByFilter(string filterString)
+        {
+            List<CustomerViewModel> result = new List<CustomerViewModel>();
+
+            using (var db = new BuahSayurContext())
+            {
+                result = (from cs in db.Customers
+                          join c in db.Cities
+                            on cs.City_Code equals c.Code
+                          join p in db.Provinces
+                            on c.Province_Code equals p.Code
+                          select new CustomerViewModel
+                          {
+                              Id = cs.Id,
+                              Username = cs.Username,
+                              FirstName = cs.FirstName,
+                              LastName = cs.LastName,
+                              Address = cs.Address,
+                              PhoneNumber = cs.PhoneNumber,
+                              Province_Code = p.Code,
+                              Province_Name = p.Name,
+                              City_Code = c.Code,
+                              City_Name = c.Name,
+                              IsActivated = cs.IsActivated
+                          }).ToList();
+
+                result = result.Where(o => o.Username.ToLower().Contains(filterString.ToLower()) || o.FullName.ToLower().Contains(filterString.ToLower()) || o.FullAddress.ToLower().Contains(filterString.ToLower())).ToList();
+            }
+
             return result;
         }
     }

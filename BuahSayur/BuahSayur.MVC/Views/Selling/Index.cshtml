@@ -1,7 +1,8 @@
 ﻿@{
-    ViewBag.Title = "Purchasing Order";
+    ViewBag.Title = "Delivery Order";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 
 <div class="well">
     <h2>@ViewBag.Title</h2>
@@ -11,15 +12,15 @@
         <div class="panel-heading">
             <div class="row">
                 <div class="col-md-3">
-                    <input id="txt-search" type="text" class="form-control" placeholder="Input Supplier Code" />
+                    <input id="txt-search" type="text" class="form-control" placeholder="Input Customer Username" />
                 </div>
                 <div class="col-md-2">
-                    <button type="button" id="btn-add" class="btn btn-search btn-primary" title="Search Supplier">
-                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span> Search Supplier
+                    <button type="button" id="btn-add" class="btn btn-search btn-primary" title="Search Customer">
+                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span> Search Customer
                     </button>
                 </div>
                 <div class="col-md-4">
-                    <button type="button" id="btn-new" class="btn" title="New Transaction" onclick="window.location.href='@Url.Action("Index", "Purchasing")'">
+                    <button type="button" id="btn-new" class="btn" title="New Transaction" onclick="window.location.href='@Url.Action("Index", "Selling")'">
                         New Transaction
                     </button>
                 </div>
@@ -30,7 +31,7 @@
         </div>
         <div class="panel-body">
             <div id="supplier-info">
-                @Html.Partial("SupplierForm")
+                @Html.Partial("CustomerForm")
             </div>
         </div>
     </div>
@@ -67,11 +68,11 @@
                 Add Item
             </button>
             <button type="button" class="btn btn-success btn-save-items">
-                Save Purchasing
+                Save Selling
             </button>
         </div>
         <div class=" selling-list">
-            @Html.Action("PurchasingList", "Purchasing")
+            @Html.Action("SellingList", "Selling")
         </div>
     </div>
 
@@ -82,6 +83,7 @@
 @section Scripts
 {
     <script type="text/javascript">
+
         $(document).ready(function () {
             $("#btn-new").hide();
             $('#Price').prop('disabled', true);
@@ -108,32 +110,33 @@
 
         // Search and Select Supplier
         $('.btn-search').click(function () {
-            SelectSupplier($('#txt-search').val());
+            SelectCustomer($('#txt-search').val());
         });
 
-        function SelectSupplier(code) {
+        function SelectCustomer(username) {
             $.ajax({
-                url: '@Url.Action("GetSupplierByCode", "Supplier")',
+                url: '@Url.Action("GetCustomerByUsername", "Customer")',
                 type: 'get',
-                data: { code: code },
+                data: { username: username },
                 success: function (result) {
                     if (result.success) {
-                        var spl = result.data;
-                        $("#Code").val(spl.Code);
-                        $("#Name").val(spl.Name);
-                        $("#FullAddress").val(spl.FullAddress);
+                        var ctm = result.data;
+                        $("#Username").val(ctm.Username);
+                        $("#FullName").val(ctm.FullName);
+                        $("#FullAddress").val(ctm.FullAddress);
+                        $("#PhoneNumber").val(ctm.PhoneNumber);
                     }
                     else {
                         //alert('Error or not found!');
-                        SupplierList();
+                        CustomerList();
                     }
                 }
             });
         }
 
-        function SupplierList() {
+        function CustomerList() {
             $.ajax({
-                url: '@Url.Action("FilterList","Supplier")',
+                url: '@Url.Action("FilterList","Customer")',
                 type: 'get',
                 data: { filterString: $('#txt-search').val() },
                 success: function (result) {
@@ -145,7 +148,7 @@
 
         /// ----- ///
         $('.btn-add-item').click(function () {
-            if ($("#Code").val().length > 0) {
+            if ($("#Username").val().length > 0) {
                 var itemList = [''];
 
                 $("input[name=Item_Code]").each(function () {
@@ -163,7 +166,7 @@
                     }
                 });
             } else {
-                alert('No Supplier Selected!');
+                alert('No Customer Selected!');
             }
         });
 
@@ -176,16 +179,16 @@
                     if (result.success) {
                         var dataItem = result.data;
                         var item = '<tr>' +
-                            '<td><input type="hidden" name="Item_Stock" value="' + dataItem.Stock + '" class="form-control"/>' +
-                            '<input type="text" name="Item_Code" value="' + dataItem.Code + '" class="form-control" disabled/></td >' +
+                            '<td><input type="text" name="Item_Code" value="' + dataItem.Code + '" class="form-control" disabled/></td >' +
                             '<td><input type="text" name="Item_Name" value="' + dataItem.Name + '" class="form-control" disabled /></td>' +
                             '<td><input type="text" name="Item_Weight" value="' + dataItem.Weight + '" class="form-control" disabled /></td>' +
-                            '<td class="warning"><input type="text" name="Quantity" onkeyup="QuantityUpdate(this);" value="0" class="form-control"/></td>' +
-                            '<td><input type="text" name="Price" value="' + (dataItem.Price - parseInt(5000)) + '" class="form-control" disabled/></td>' +
+                            '<td class="warning"><input type="hidden" name="Item_Stock" value="' + dataItem.Stock + '" class="form-control" />' +
+                            '<input type="text" name="Quantity" onkeyup="QuantityUpdate(this);" value="0" class="form-control"/></td>' +
+                            '<td><input type="text" name="Price" value="' + dataItem.Price + '" class="form-control" disabled/></td>' +
                             '<td><input type="text" name="Total" value="0.00" class="form-control" disabled/></td>' +
                             '<td><button type="button" class="btn btn-danger btn-remove" onclick="RemoveItem(this)">Remove</button></td></tr>';
 
-                        $('#purchasing-item-list').append(item);
+                        $('#selling-item-list').append(item);
                     }
                     else {
                         //alert('Error or not found!');
@@ -196,38 +199,38 @@
         }
 
         $('.btn-save-items').click(function () {
-            var vPurchasingDetails = [];
-            var vSupplier_Code = $("#Code").val();
-            var vPurchasingDate = $("#PurchasingDate").val();
+            var vDeliveryDetails = [];
+            var vCustomer_Username = $("#Username").val();
+            var vSellingDate = $("#SellingDate").val();
             var vItem = 0;
 
-            $("#purchasing-item-list").find("tr").each(function () {
+            $("#selling-item-list").find("tr").each(function () {
                 vItem = vItem + 1;
                 var vItem_Code = $(this).find("input[name=Item_Code]").val();
                 var vQuantity = $(this).find("input[name=Quantity]").val();
                 var vPrice = $(this).find("input[name=Price]").val();
                 var vTotal = $(this).find("input[name=Total]").val();
                 var vDetail = { Item_Code: vItem_Code, Quantity: vQuantity, Price: vPrice, Total: vTotal };
-                vPurchasingDetails.push(vDetail);
+                vDeliveryDetails.push(vDetail);
             });
 
             //alert(JSON.stringify(vPurchasingDetails));
 
             if (vItem > 0) {
-                var vHeaderDetail = { Id: 0, Supplier_Code: vSupplier_Code, PurchasingDate: vPurchasingDate, PurchasingDetails: vPurchasingDetails };
+                var vHeaderDetail = { Id: 0, Customer_Username: vCustomer_Username, SellingDate: vSellingDate, DeliveryDetails: vDeliveryDetails };
 
                 //alert(JSON.stringify(vHeaderDetail));
 
                 $.ajax({
-                    url: '@Url.Action("SavePurchasing", "Purchasing")',
+                    url: '@Url.Action("SaveSelling", "Selling")',
                     data: { models: vHeaderDetail },
                     type: 'post',
                     success: function (result) {
                         if (result.success) {
                             SuccessCreated();
-                            $('#purchasing-total').html(result.data.Total);
+                            $('#selling-total').html(result.data.Total);
                             $('#reference-code').html(result.data.Reference);
-                            $('input[name=PurchasingDate]').prop('disabled', true);
+                            $('input[name=SellingDate]').prop('disabled', true);
                             $('#txt-search').prop('disabled', true);
                             $('.btn-search').prop('disabled', true);
                             $('.btn-save-items').prop('disabled', true);
@@ -247,25 +250,28 @@
         });
 
         function QuantityUpdate(obj) {
-            var stock = parseInt($(obj).closest('tr').find('input[name=Item_Stock]').val());
-            var maxStock = parseInt(20) - stock;
+            var stock = $(obj).closest('tr').find('input[name=Item_Stock]').val();
+
             //alert($(obj).val());
             var qty = parseInt($(obj).closest('tr').find('input[name=Quantity]').val()) || 0;
-            var prc = $(obj).closest('tr').find('input[name=Price]').val();
+            var prc = parseInt($(obj).closest('tr').find('input[name=Price]').val());
             var total = qty * prc;
-            if (qty > maxStock) {
-                alert("Maximum stock is 20 pack. You can only supply maximum " + maxStock + " pack, because we have already had " + stock + " pack in stock.");
-                $(obj).closest('tr').find('input[name=Quantity]').val(maxStock);
+
+            if (qty > stock) {
+                alert("Only left " + stock + " pack in stock.");
+                $(obj).closest('tr').find('input[name=Quantity]').val(stock);
             }
+
             $(obj).closest('tr').find('input[name=Total]').val(total);
             var grdTotal = 0;
 
-            $("#purchasing-item-list").find("tr").each(function () {
+            $("#selling-item-list").find("tr").each(function () {
                 var vTotal = $(this).find("input[name=Total]").val();
                 grdTotal = parseFloat(grdTotal) + parseFloat(vTotal);
             });
 
-            $("#purchasing-total").html(grdTotal);
+            $("#selling-total").html(grdTotal);
+
         }
 
         function RemoveItem(obj) {
@@ -273,7 +279,7 @@
             var vItem_Name = $(obj).closest('tr').find('input[name=Item_Name]').val();
             var vItem_Weight = $(obj).closest('tr').find('input[name=Item_Weight]').val();
 
-            var remove = confirm("Sure you don't want to supply " + vItem_Weight + " Kg " + vItem_Name + "?");
+            var remove = confirm("Sure you want to remove " + vItem_Weight + " Kg " + vItem_Name + " from list?");
             if (remove) {
                 $(obj).closest('tr').remove();
             }
@@ -285,12 +291,12 @@
             $(obj).closest('tr').find('input[name=Total]').val(total);
             var grdTotal = 0;
 
-            $("#purchasing-item-list").find("tr").each(function () {
+            $("#selling-item-list").find("tr").each(function () {
                 var vTotal = $(this).find("input[name=Total]").val();
                 grdTotal = parseFloat(grdTotal) + parseFloat(vTotal);
             });
 
-            $("#purchasing-total").html(grdTotal);
+            $("#selling-total").html(grdTotal);
         }
     </script>
 }

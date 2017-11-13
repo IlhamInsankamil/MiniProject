@@ -20,6 +20,9 @@ namespace BuahSayur.DataModel
         public virtual DbSet<Province> Provinces { get; set; }
         public virtual DbSet<PurchasingOrder> PurchasingOrders { get; set; }
         public virtual DbSet<PurchasingOrderDetail> PurchasingOrderDetails { get; set; }
+        public virtual DbSet<ReturnOrder> ReturnOrders { get; set; }
+        public virtual DbSet<ReturnOrderDetail> ReturnOrderDetails { get; set; }
+        public virtual DbSet<ShipmentOrder> ShipmentOrders { get; set; }
         public virtual DbSet<Supplier> Suppliers { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -116,6 +119,18 @@ namespace BuahSayur.DataModel
 
             modelBuilder.Entity<DeliveryOrder>()
                 .HasMany(e => e.DeliveryOrderDetails)
+                .WithRequired(e => e.DeliveryOrder)
+                .HasForeignKey(e => e.DeliveryOrder_Id)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<DeliveryOrder>()
+                .HasMany(e => e.ReturnOrders)
+                .WithRequired(e => e.DeliveryOrder)
+                .HasForeignKey(e => e.DeliveryOrder_Id)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<DeliveryOrder>()
+                .HasMany(e => e.ShipmentOrders)
                 .WithRequired(e => e.DeliveryOrder)
                 .HasForeignKey(e => e.DeliveryOrder_Id)
                 .WillCascadeOnDelete(false);
@@ -258,6 +273,61 @@ namespace BuahSayur.DataModel
                 .IsUnicode(false);
 
             modelBuilder.Entity<PurchasingOrderDetail>()
+                .Property(e => e.ModifiedBy)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<ReturnOrder>()
+                .Property(e => e.CreatedBy)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<ReturnOrder>()
+                .Property(e => e.ModifiedBy)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<ReturnOrder>()
+                .HasMany(e => e.ReturnOrderDetails)
+                .WithRequired(e => e.ReturnOrder)
+                .HasForeignKey(e => e.Return_Id)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<ReturnOrderDetail>()
+                .Property(e => e.ReturnAmount)
+                .HasPrecision(18, 4);
+
+            modelBuilder.Entity<ReturnOrderDetail>()
+                .Property(e => e.Replacement)
+                .HasPrecision(18, 4);
+
+            modelBuilder.Entity<ReturnOrderDetail>()
+                .Property(e => e.CeatedBy)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<ReturnOrderDetail>()
+                .Property(e => e.ModifiedBy)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<ShipmentOrder>()
+                .Property(e => e.Vehicle)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<ShipmentOrder>()
+                .Property(e => e.PersonInCharge)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<ShipmentOrder>()
+                .Property(e => e.ReceivedBy)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<ShipmentOrder>()
+                .Property(e => e.DeliveryStatus)
+                .IsFixedLength()
+                .IsUnicode(false);
+
+            modelBuilder.Entity<ShipmentOrder>()
+                .Property(e => e.CreatedBy)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<ShipmentOrder>()
                 .Property(e => e.ModifiedBy)
                 .IsUnicode(false);
 

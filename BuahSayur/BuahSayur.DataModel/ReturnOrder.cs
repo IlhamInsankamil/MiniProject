@@ -6,24 +6,19 @@ namespace BuahSayur.DataModel
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("DeliveryOrderDetail")]
-    public partial class DeliveryOrderDetail
+    [Table("ReturnOrder")]
+    public partial class ReturnOrder
     {
+        public ReturnOrder()
+        {
+            ReturnOrderDetails = new HashSet<ReturnOrderDetail>();
+        }
+
         public int Id { get; set; }
 
         public int DeliveryOrder_Id { get; set; }
 
-        [Required]
-        [StringLength(10)]
-        public string Item_Code { get; set; }
-
-        public decimal Quantity { get; set; }
-
-        [Column(TypeName = "money")]
-        public decimal Price { get; set; }
-
-        [Column(TypeName = "money")]
-        public decimal? Total { get; set; }
+        public DateTime ReturnDate { get; set; }
 
         public DateTime? Created { get; set; }
 
@@ -37,6 +32,6 @@ namespace BuahSayur.DataModel
 
         public virtual DeliveryOrder DeliveryOrder { get; set; }
 
-        public virtual Item Item { get; set; }
+        public virtual ICollection<ReturnOrderDetail> ReturnOrderDetails { get; set; }
     }
 }

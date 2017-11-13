@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace BuahSayur.ViewModel
 {
-    public class PurchasingOrderDetailViewModel
+    public class DeliveryOrderDetailViewModel
     {
         public int Id { get; set; }
 
-        public int PurchasingOrder_Id { get; set; }
+        public int DeliveryOrder_Id { get; set; }
 
         [DisplayName("Code")]
         public string Item_Code { get; set; }
@@ -25,6 +25,7 @@ namespace BuahSayur.ViewModel
 
         public string Item_Stock { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:0}")]
         public decimal Quantity { get; set; }
 
         public decimal Price { get; set; }

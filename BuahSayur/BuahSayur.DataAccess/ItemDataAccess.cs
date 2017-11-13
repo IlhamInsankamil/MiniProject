@@ -155,7 +155,7 @@ namespace BuahSayur.DataAccess
                               Weight = it.Weight,
                               Size = it.Size,
                               IsActivated = it.IsActivated
-                          }).Where(o => !ExceptionList.Contains(o.Code)).ToList();
+                          }).Where(o => !ExceptionList.Contains(o.Code) && o.Stock > 0).ToList();
             }
 
             return result;

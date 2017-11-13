@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace BuahSayur.DataAccess
 {
-    public class PurchasingDataAccess
+    public class SellingDataAccess
     {
         public static string Message = string.Empty;
 
-        public static PurchasingResult Save(PurchasingOrderHeaderViewModel models)
+        public static SellingResult Save(DeliveryOrderHeaderViewModel models)
         {
-            PurchasingResult result = new PurchasingResult();
+            SellingResult result = new SellingResult();
 
             try
             {
@@ -23,32 +23,32 @@ namespace BuahSayur.DataAccess
                     string newRef = GetNewReference();
                     result.Reference = newRef;
 
-                    PurchasingOrder purchasingOrder = new PurchasingOrder
+                    DeliveryOrder deliveryOrder = new DeliveryOrder
                     {
                         Id = 1,
-                        Supplier_Code = models.Supplier_Code,
+                        Customer_Username = models.Customer_Username,
                         Reference = newRef,
-                        PurchasingDate = models.PurchasingDate
+                        SellingDate = models.SellingDate
                     };
-                    db.PurchasingOrders.Add(purchasingOrder);
+                    db.DeliveryOrders.Add(deliveryOrder);
 
-                    foreach (var item in models.PurchasingDetails)
+                    foreach (var item in models.DeliveryDetails)
                     {
-                        PurchasingOrderDetail purchasingDetail = new PurchasingOrderDetail
+                        DeliveryOrderDetail deliveryDetail = new DeliveryOrderDetail
                         {
-                            PurchasingOrder_Id = purchasingOrder.Id,
+                            DeliveryOrder_Id = deliveryOrder.Id,
                             Item_Code = item.Item_Code,
                             Quantity = item.Quantity,
                             Price = item.Price,
                             Total = item.Quantity * item.Price
                         };
                         result.Total += (item.Quantity * item.Price);
-                        db.PurchasingOrderDetails.Add(purchasingDetail);
+                        db.DeliveryOrderDetails.Add(deliveryDetail);
                         // Update Stock
                         Item Stock = db.Items.Where(x => x.Code == item.Item_Code).FirstOrDefault();
-                        if (Stock!=null)
+                        if (Stock != null)
                         {
-                            Stock.Stock = Stock.Stock + item.Quantity;
+                            Stock.Stock = Stock.Stock - item.Quantity;
                         }
                     }
                     db.SaveChanges();
@@ -70,7 +70,7 @@ namespace BuahSayur.DataAccess
             {
                 using (var db = new BuahSayurContext())
                 {
-                    var refTemplate = "PO-" + (DateTime.Now).ToString("yy") + string.Format("{0:00}", DateTime.Now.Month) + "-";
+                    var refTemplate = "DO-" + (DateTime.Now).ToString("yy") + string.Format("{0:00}", DateTime.Now.Month) + "-";
 
                     var lastRef = (from po in db.PurchasingOrders
                                    where po.Reference.Contains(refTemplate)

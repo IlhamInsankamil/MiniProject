@@ -1,5 +1,4 @@
-﻿@model IEnumerable<BuahSayur.ViewModel.PurchasingOrderDetailViewModel>
-
+﻿@model IEnumerable<BuahSayur.ViewModel.DeliveryOrderDetailViewModel>
 
 <table class="table">
     <thead>
@@ -25,12 +24,11 @@
             <th></th>
         </tr>
     </thead>
-    <tbody id="purchasing-item-list">
+    <tbody id="selling-item-list">
         @foreach (var item in Model)
         {
             <tr>
                 <td>
-                    <input type="hidden" name="Item_Stock" value="@item.Item_Stock"/>
                     <input type="text" name="Item_Code" value="@item.Item_Code" class="form-control" disabled />
                     @*@Html.DisplayFor(modelItem => item.Item_Code)*@
                 </td>
@@ -43,11 +41,12 @@
                     @*@Html.DisplayFor(modelItem => item.Item_Name)*@
                 </td>
                 <td class="warning">
+                    <input type="hidden" name="Item_Stock" value="@item.Item_Stock" />
                     <input type="text" name="Quantity" onkeyup="QuantityUpdate(this);" value="@item.Quantity" class="form-control" />
                     @*@Html.DisplayFor(modelItem => item.Quantity)*@
                 </td>
                 <td>
-                    <input type="text" name="Price" value="(parseInt(@item.Price) - parseInt(5000))" class="form-control" disabled />
+                    <input type="text" name="Price" value="@item.Price" class="form-control" disabled />
                     @*@Html.DisplayFor(modelItem => item.Price)*@
                 </td>
                 <td>

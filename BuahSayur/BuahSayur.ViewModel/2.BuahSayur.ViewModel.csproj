@@ -42,11 +42,15 @@
   <ItemGroup>
     <Compile Include="CityViewModel.cs" />
     <Compile Include="CustomerViewModel.cs" />
+    <Compile Include="DeliveryOrderDetailViewModel.cs" />
+    <Compile Include="DeliveryOrderHeaderViewModel.cs" />
     <Compile Include="ItemViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProvinceViewModel.cs" />
     <Compile Include="PurchasingOrderDetailViewModel.cs" />
     <Compile Include="PurchasingOrderHeaderViewModel.cs" />
+    <Compile Include="ReturnOrderDetailViewModel.cs" />
+    <Compile Include="ReturnOrderHeaderViewModel.cs" />
     <Compile Include="SupplierViewModel.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

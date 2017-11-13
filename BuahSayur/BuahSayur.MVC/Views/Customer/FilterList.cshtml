@@ -1,0 +1,49 @@
+﻿@model IEnumerable<BuahSayur.ViewModel.CustomerViewModel>
+
+<table class="table" id="data-list">
+    <thead>
+        <tr>
+            <th>Action</th>
+            <th>
+                @Html.DisplayNameFor(model => model.Username)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FullName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PhoneNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FullAddress)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <button type="button" class="btn btn-success btn-select-customer" data-id="@item.Id" data-username="@item.Username" data-dismiss="modal">Select</button>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Username)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FullName)
+                </td>               
+                <td>
+                    @Html.DisplayFor(modelItem => item.PhoneNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FullAddress)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script type="text/javascript">
+    $(".btn-select-customer").click(function () {
+        SelectCustomer($(this).attr("data-username"));
+    });
+</script>
