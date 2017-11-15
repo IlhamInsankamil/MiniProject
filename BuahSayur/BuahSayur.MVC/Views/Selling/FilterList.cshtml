@@ -1,0 +1,44 @@
+﻿@model IEnumerable<BuahSayur.ViewModel.DeliveryOrderHeaderViewModel>
+
+<table class="table" id="data-list">
+    <thead>
+        <tr>
+            <th>Action</th>
+            <th>
+                @Html.DisplayNameFor(model => model.Customer_Username)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Reference)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SellingDate)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <button type="button" class="btn btn-success btn-select-selling" data-id="@item.Id" data-reference="@item.Reference" data-dismiss="modal">Select</button>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Customer_Username)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Reference)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SellingDate)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script type="text/javascript">
+    $(".btn-select-selling").click(function () {
+        SelectSelling($(this).attr("data-reference"));
+        SelectSellingDetail($(this).attr("data-reference"));
+    });
+</script>

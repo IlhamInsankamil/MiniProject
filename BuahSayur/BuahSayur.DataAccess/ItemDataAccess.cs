@@ -160,5 +160,29 @@ namespace BuahSayur.DataAccess
 
             return result;
         }
+
+        public static List<ItemViewModel> GetByExceptionMax(List<string> ExceptionListMax) 
+        {
+            List<ItemViewModel> result = new List<ItemViewModel>();
+
+            using (var db = new BuahSayurContext())
+            {
+                result = (from it in db.Items
+                          select new ItemViewModel
+                          {
+                              Id = it.Id,
+                              Code = it.Code,
+                              Name = it.Name,
+                              Price = it.Price,
+                              Category = it.Category,
+                              Stock = it.Stock,
+                              Weight = it.Weight,
+                              Size = it.Size,
+                              IsActivated = it.IsActivated
+                          }).Where(o => !ExceptionListMax.Contains(o.Code) && o.Stock < 20).ToList();
+            }
+
+            return result;
+        }
     }
 }

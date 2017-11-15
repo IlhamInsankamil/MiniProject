@@ -45,5 +45,25 @@ namespace BuahSayur.MVC.Controllers
             }
             return Json(new { success = false, message = "Invalid Model State!" }, JsonRequestBehavior.AllowGet);
         }
+
+        public ActionResult GetSellingByReference(string reference)
+        {
+            DeliveryOrderHeaderViewModel model = SellingDataAccess.GetByReference(reference);
+
+            if (model != null)
+            {
+                string SellingDate = model.SellingDate.ToString("ddd, dd/MM/yyyy");
+                return Json(new { success = true, data = model, SellingDate = SellingDate }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(new { success = false }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public ActionResult FilterList(string filterString)
+        {
+            return View(SellingDataAccess.GetByFilter(filterString));
+        }
     }
 }

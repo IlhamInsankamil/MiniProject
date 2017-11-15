@@ -1,7 +1,8 @@
 ﻿@{
-    ViewBag.Title = "Purchasing Order";
+    ViewBag.Title = "Return";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 
 <div class="well">
     <h2>@ViewBag.Title</h2>
@@ -11,15 +12,15 @@
         <div class="panel-heading">
             <div class="row">
                 <div class="col-md-3">
-                    <input id="txt-search" type="text" class="form-control" placeholder="Input Supplier Code" />
+                    <input id="txt-search" type="text" class="form-control" placeholder="Input Reference Code" />
                 </div>
                 <div class="col-md-2">
-                    <button type="button" id="btn-add" class="btn btn-search btn-primary" title="Search Supplier">
-                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span> Search Supplier
+                    <button type="button" id="btn-add" class="btn btn-search btn-primary" title="Search Selling">
+                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span> Search Selling
                     </button>
                 </div>
                 <div class="col-md-4">
-                    <button type="button" id="btn-new" class="btn" title="New Transaction" onclick="window.location.href='@Url.Action("Index", "Purchasing")'">
+                    <button type="button" id="btn-new" class="btn" title="New Transaction" onclick="window.location.href='@Url.Action("Index", "Return")'">
                         New Transaction
                     </button>
                 </div>
@@ -29,8 +30,8 @@
             </div>
         </div>
         <div class="panel-body">
-            <div id="supplier-info">
-                @Html.Partial("SupplierForm")
+            <div id="selling-info">
+                @Html.Partial("DeliveryForm")
             </div>
         </div>
     </div>
@@ -57,21 +58,21 @@
 <div class="alert alert-success" id="success-create" hidden>
     <button type="button" class="close" data-dismiss="alert">x</button>
     <strong>Success! </strong>
-    New Purchasing Order added successfully.
+    New Return Order added successfully.
 </div>
 
 <div class="panel-group">
     <div class="panel panel-default">
         <div class="panel-heading">
-            <button type="button" class="btn btn-primary btn-add-item">
-                Add Item
-            </button>
+            @*<button type="button" class="btn btn-primary btn-add-item">
+                    Add Item
+                </button>*@
             <button type="button" class="btn btn-success btn-save-items">
-                Save Purchasing
+                Save Return
             </button>
         </div>
-        <div class=" selling-list">
-            @Html.Action("PurchasingList", "Purchasing")
+        <div class=" return-list">
+
         </div>
     </div>
 
@@ -104,36 +105,48 @@
             format: "ddd, DD/MM/YYYY",
             defaultDate: Date.now(),
             minDate: moment().millisecond(0).second(0).minute(0).hour(0) // enable today's date and set mindate as this date (moment)
-        });
+        }); 
 
-        // Search and Select Supplier
+        
+        // Search and Select DeliveryOrder
         $('.btn-search').click(function () {
-            SelectSupplier($('#txt-search').val());
+            SelectSelling($('#txt-search').val());
+            SelectSellingDetail($('#txt-search').val());
         });
 
-        function SelectSupplier(code) {
+        function SelectSelling(reference) {
             $.ajax({
-                url: '@Url.Action("GetSupplierByCode", "Supplier")',
+                url: '@Url.Action("GetSellingByReference", "Selling")',
                 type: 'get',
-                data: { code: code },
+                data: { reference: reference },
                 success: function (result) {
                     if (result.success) {
-                        var spl = result.data;
-                        $("#Code").val(spl.Code);
-                        $("#Name").val(spl.Name);
-                        $("#FullAddress").val(spl.FullAddress);
+                        var sel = result.data;
+                        $("#Customer_Username").val(sel.Customer_Username);
+                        $("#Reference").val(sel.Reference);
+                        $("#SellingDate").val(result.SellingDate);
                     }
                     else {
-                        //alert('Error or not found!');
-                        SupplierList();
+                        SellingList();
                     }
                 }
             });
         }
 
-        function SupplierList() {
+        function SelectSellingDetail(reference) {
             $.ajax({
-                url: '@Url.Action("FilterList","Supplier")',
+                url: '@Url.Action("GetSellingDetailByReference", "Return")',
+                type: 'get',
+                data: { reference: reference },
+                success: function (result) {
+                    $(".return-list").html(result);
+                }
+            });
+        }
+
+        function SellingList() {
+            $.ajax({
+                url: '@Url.Action("FilterList","Selling")',
                 type: 'get',
                 data: { filterString: $('#txt-search').val() },
                 success: function (result) {
@@ -144,7 +157,7 @@
         }
 
         /// ----- ///
-        $('.btn-add-item').click(function () {
+        @*$('.btn-add-item').click(function () {
             if ($("#Code").val().length > 0) {
                 var itemList = [''];
 
@@ -193,7 +206,7 @@
                     }
                 }
             });
-        }
+        }*@
 
         $('.btn-save-items').click(function () {
             var vPurchasingDetails = [];
@@ -269,29 +282,29 @@
             $("#purchasing-total").html(grdTotal);
         }
 
-        function RemoveItem(obj) {
-            //$(obj).closest('tr').remove();
-            var vItem_Name = $(obj).closest('tr').find('input[name=Item_Name]').val();
-            var vItem_Weight = $(obj).closest('tr').find('input[name=Item_Weight]').val();
+        //function RemoveItem(obj) {
+        //    //$(obj).closest('tr').remove();
+        //    var vItem_Name = $(obj).closest('tr').find('input[name=Item_Name]').val();
+        //    var vItem_Weight = $(obj).closest('tr').find('input[name=Item_Weight]').val();
 
-            var remove = confirm("Sure you don't want to supply " + vItem_Weight + " Kg " + vItem_Name + "?");
-            if (remove) {
-                $(obj).closest('tr').remove();
-            }
+        //    var remove = confirm("Sure you don't want to supply " + vItem_Weight + " Kg " + vItem_Name + "?");
+        //    if (remove) {
+        //        $(obj).closest('tr').remove();
+        //    }
 
-            var qty = $(obj).closest('tr').find('input[name=Quantity]').val();
-            var prc = $(obj).closest('tr').find('input[name=Price]').val();
-            var total = qty * prc;
+        //    var qty = $(obj).closest('tr').find('input[name=Quantity]').val();
+        //    var prc = $(obj).closest('tr').find('input[name=Price]').val();
+        //    var total = qty * prc;
 
-            $(obj).closest('tr').find('input[name=Total]').val(total);
-            var grdTotal = 0;
+        //    $(obj).closest('tr').find('input[name=Total]').val(total);
+        //    var grdTotal = 0;
 
-            $("#purchasing-item-list").find("tr").each(function () {
-                var vTotal = $(this).find("input[name=Total]").val();
-                grdTotal = parseFloat(grdTotal) + parseFloat(vTotal);
-            });
+        //    $("#purchasing-item-list").find("tr").each(function () {
+        //        var vTotal = $(this).find("input[name=Total]").val();
+        //        grdTotal = parseFloat(grdTotal) + parseFloat(vTotal);
+        //    });
 
-            $("#purchasing-total").html(grdTotal);
-        }
+        //    $("#purchasing-total").html(grdTotal);
+        //}
     </script>
 }

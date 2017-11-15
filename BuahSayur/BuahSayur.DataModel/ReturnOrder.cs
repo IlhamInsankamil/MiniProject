@@ -18,6 +18,10 @@ namespace BuahSayur.DataModel
 
         public int DeliveryOrder_Id { get; set; }
 
+        [Required]
+        [StringLength(15)]
+        public string Reference { get; set; }
+
         public DateTime ReturnDate { get; set; }
 
         public DateTime? Created { get; set; }

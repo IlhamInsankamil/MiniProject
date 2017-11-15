@@ -18,8 +18,15 @@ namespace BuahSayur.ViewModel
 
         public string Reference { get; set; }
 
-        [DisplayName("Selling Date"), DisplayFormat(DataFormatString = "{0:dd MMM yyyy}")]
+        [DisplayName("Selling Date"), DisplayFormat(DataFormatString = "{0:ddd, dd/MM/yyyy}")]
         public DateTime SellingDate { get; set; }
+        public string SellingDateString 
+        { 
+            get 
+            {
+                return SellingDate.ToString("ddd, dd/MM/yyyy");
+            } 
+        }
 
         // Detail
         public List<DeliveryOrderDetailViewModel> DeliveryDetails { get; set; }

@@ -1,0 +1,53 @@
+﻿@model IEnumerable<BuahSayur.ViewModel.ItemViewModel>
+
+<table class="table">
+    <tr>
+        <th>Action</th>
+        <th>
+            @Html.DisplayNameFor(model => model.CategoryString)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Weight)
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>*@        
+        <th>
+            @Html.DisplayNameFor(model => model.Stock)
+        </th>        
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            <button type="button" class="btn btn-success btn-select-item" data-code="@item.Code" data-id="@item.Id" data-dismiss="modal">Select</button>
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CategoryString)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Weight)
+        </td>    
+        @*<td>
+            @Html.DisplayFor(modelItem => item.Price)
+        </td>*@
+        <td>
+            @Html.DisplayFor(modelItem => item.Stock)
+        </td>
+    </tr>
+}
+
+</table>
+
+
+<script type="text/javascript">
+    $('.btn-select-item').click(function () {
+        SelectItem($(this).attr('data-id'));
+    });
+</script>

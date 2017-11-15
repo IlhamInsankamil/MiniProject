@@ -277,6 +277,10 @@ namespace BuahSayur.DataModel
                 .IsUnicode(false);
 
             modelBuilder.Entity<ReturnOrder>()
+                .Property(e => e.Reference)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<ReturnOrder>()
                 .Property(e => e.CreatedBy)
                 .IsUnicode(false);
 

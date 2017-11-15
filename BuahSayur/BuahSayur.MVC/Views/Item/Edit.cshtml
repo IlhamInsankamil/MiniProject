@@ -56,6 +56,7 @@
             @Html.LabelFor(model => model.Weight, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Weight, new { htmlAttributes = new { @class = "form-control" } })
+                @*@Html.DropDownListFor(model => model.Weight, (IEnumerable<SelectListItem>)ViewBag.WeightList, "Select Weight", new { @class = "form-control" })*@
                 @Html.ValidationMessageFor(model => model.Weight, "", new { @class = "text-danger" })
             </div>
         </div>

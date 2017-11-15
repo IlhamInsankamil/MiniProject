@@ -14,16 +14,21 @@ namespace BuahSayur.ViewModel
 
         public int DeliveryOrder_Id { get; set; }
 
-        [DisplayName("Code")]
+        [DisplayName("Item Code")]
         public string Item_Code { get; set; }
 
-        [DisplayName("Item")]
+        [DisplayName("Item Name")]
         public string Item_Name { get; set; }
 
         [DisplayName("Weight")]
         public string Item_Weight { get; set; }
 
         public string Item_Stock { get; set; }
+
+        [DisplayName("Return Amount")]
+        public decimal ReturnAmount { get; set; }
+
+        public decimal Replacement { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:0}")]
         public decimal Quantity { get; set; }
