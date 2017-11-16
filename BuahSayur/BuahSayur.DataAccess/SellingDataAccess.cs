@@ -87,14 +87,11 @@ namespace BuahSayur.DataAccess
             }
             catch (Exception ex)
             {
-                //Message = ex.Message;
-                throw;
+                Message = ex.Message;
             }
 
             return result;
         }
-
-        public static DeliveryOrderHeaderViewModel SelectedDeliveryOrder = new DeliveryOrderHeaderViewModel();
 
         public static DeliveryOrderHeaderViewModel GetByReference(string reference)
         {
@@ -118,32 +115,6 @@ namespace BuahSayur.DataAccess
             return result;
         }
 
-        public static DeliveryOrderHeaderViewModel SelectedSelling = new DeliveryOrderHeaderViewModel();
-
-        //public static bool SetSelectedSelling(string reference)
-        //{
-        //    bool result = true;
-
-        //    try
-        //    {
-        //        using (var db = new BuahSayurContext())
-        //        {
-        //            DeliveryOrder dOr = db.DeliveryOrders.Where(o => o.Reference == reference).FirstOrDefault();
-        //            SelectedSelling.Id = dOr.Id;
-        //            SelectedSelling.Customer_Username = dOr.Customer_Username;
-        //            SelectedSelling.Reference = dOr.Reference;
-        //            SelectedSelling.SellingDate = dOr.SellingDate;
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        result = false;
-        //        Message = ex.Message;
-        //    }
-
-        //    return result;
-        //}
-
         public static List<DeliveryOrderHeaderViewModel> GetByFilter(string filterString)
         {
             List<DeliveryOrderHeaderViewModel> result = new List<DeliveryOrderHeaderViewModel>();
@@ -166,28 +137,5 @@ namespace BuahSayur.DataAccess
 
             return result;
         }
-        //public static bool SetSelectedDeliveryOrder(string reference)
-        //{
-        //    bool result = true;
-
-        //    try
-        //    {
-        //        using (var db = new BuahSayurContext())
-        //        {
-        //            DeliveryOrder dOr = db.DeliveryOrders.Where(o => o.Reference == reference).FirstOrDefault();
-        //            // melimpahkan dari Data Model ke View Model
-        //            SelectedDeliveryOrder.Id = dOr.Id;
-
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        result = false;
-        //        Message = ex.Message;
-        //        throw;
-        //    }
-
-        //    return result;
-        //}
     }
 }

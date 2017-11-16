@@ -55,10 +55,10 @@
     </div>
 </div>
 
-<div class="alert alert-success" id="success-create" hidden>
+<div class="alert alert-success" id="success-request" hidden>
     <button type="button" class="close" data-dismiss="alert">x</button>
     <strong>Success! </strong>
-    New Return Order added successfully.
+    Your return request added successfully.
 </div>
 
 <div class="panel-group">
@@ -67,12 +67,12 @@
             @*<button type="button" class="btn btn-primary btn-add-item">
                     Add Item
                 </button>*@
-            <button type="button" class="btn btn-success btn-save-items">
-                Save Return
+            <button type="button" class="btn btn-warning btn-save-items">
+                Request Return
             </button>
         </div>
-        <div class=" return-list">
-
+        <div class="return-list">
+            @Html.Action("GetSellingDetailByReference", "Return")
         </div>
     </div>
 
@@ -95,9 +95,9 @@
             $("#btn-new").toggleClass("btn-warning");
         }, 500)
 
-        function SuccessCreated() {
-            $("#success-create").fadeTo(3000, 500).slideUp(500, function () {
-                $("#success-create").slideUp(500);
+        function SuccessRequested() {
+            $("#success-request").fadeTo(3000, 500).slideUp(500, function () {
+                $("#success-request").slideUp(500);
             });
         }
 
@@ -105,9 +105,9 @@
             format: "ddd, DD/MM/YYYY",
             defaultDate: Date.now(),
             minDate: moment().millisecond(0).second(0).minute(0).hour(0) // enable today's date and set mindate as this date (moment)
-        }); 
+        });
 
-        
+
         // Search and Select DeliveryOrder
         $('.btn-search').click(function () {
             SelectSelling($('#txt-search').val());
@@ -122,6 +122,7 @@
                 success: function (result) {
                     if (result.success) {
                         var sel = result.data;
+                        $("#Id").val(sel.Id);
                         $("#Customer_Username").val(sel.Customer_Username);
                         $("#Reference").val(sel.Reference);
                         $("#SellingDate").val(result.SellingDate);
@@ -129,17 +130,6 @@
                     else {
                         SellingList();
                     }
-                }
-            });
-        }
-
-        function SelectSellingDetail(reference) {
-            $.ajax({
-                url: '@Url.Action("GetSellingDetailByReference", "Return")',
-                type: 'get',
-                data: { reference: reference },
-                success: function (result) {
-                    $(".return-list").html(result);
                 }
             });
         }
@@ -156,97 +146,52 @@
             });
         }
 
-        /// ----- ///
-        @*$('.btn-add-item').click(function () {
-            if ($("#Code").val().length > 0) {
-                var itemList = [''];
-
-                $("input[name=Item_Code]").each(function () {
-                    itemList.push($(this).val());
-                });
-
-                $.ajax({
-                    url: '@Url.Action("ExceptionListMax", "Item")',
-                    data: { exceptionListMax: itemList },
-                    type: 'get',
-                    traditional: true,
-                    success: function (result) {
-                        $(".modal-body").html(result);
-                        $("#modal-form").modal("show");
-                    }
-                });
-            } else {
-                alert('No Supplier Selected!');
-            }
-        });
-
-        function SelectItem(itemId) {
+        function SelectSellingDetail(reference) {
             $.ajax({
-                url: '@Url.Action("GetById", "Item")',
+                url: '@Url.Action("GetSellingDetailByReference", "Return")',
                 type: 'get',
-                data: { id: itemId },
+                data: { reference: reference },
                 success: function (result) {
-                    if (result.success) {
-                        var dataItem = result.data;
-                        var item = '<tr>' +
-                            '<td><input type="hidden" name="Item_Stock" value="' + dataItem.Stock + '" class="form-control"/>' +
-                            '<input type="text" name="Item_Code" value="' + dataItem.Code + '" class="form-control" disabled/></td >' +
-                            '<td><input type="text" name="Item_Name" value="' + dataItem.Name + '" class="form-control" disabled /></td>' +
-                            '<td><input type="text" name="Item_Weight" value="' + dataItem.Weight + '" class="form-control" disabled /></td>' +
-                            '<td class="warning"><input type="text" name="Quantity" onkeyup="QuantityUpdate(this);" value="0" class="form-control"/></td>' +
-                            '<td><input type="text" name="Price" value="' + (dataItem.Price - parseInt(5000)) + '" class="form-control" disabled/></td>' +
-                            '<td><input type="text" name="Total" value="0.00" class="form-control" disabled/></td>' +
-                            '<td><button type="button" class="btn btn-danger btn-remove" onclick="RemoveItem(this)">Remove</button></td></tr>';
-
-                        $('#purchasing-item-list').append(item);
-                    }
-                    else {
-                        //alert('Error or not found!');
-                        alert('Error or not found: ' + result.message);
-                    }
+                    $(".return-list").html(result);
                 }
             });
-        }*@
+        }
 
         $('.btn-save-items').click(function () {
-            var vPurchasingDetails = [];
-            var vSupplier_Code = $("#Code").val();
-            var vPurchasingDate = $("#PurchasingDate").val();
+            var vReturnOrderDetails = [];
+            var vDeliveryOrder_Id = $("#Id").val();
+            var vReturnDate = $("#ReturnDate").val();
             var vItem = 0;
 
-            $("#purchasing-item-list").find("tr").each(function () {
+            $("#return-detail-list").find("tr").each(function () {
                 vItem = vItem + 1;
                 var vItem_Code = $(this).find("input[name=Item_Code]").val();
-                var vQuantity = $(this).find("input[name=Quantity]").val();
-                var vPrice = $(this).find("input[name=Price]").val();
-                var vTotal = $(this).find("input[name=Total]").val();
-                var vDetail = { Item_Code: vItem_Code, Quantity: vQuantity, Price: vPrice, Total: vTotal };
-                vPurchasingDetails.push(vDetail);
+                var vReturnAmount = $(this).find("input[name=ReturnAmount]").val() || 0;
+                var vDetail = { Item_Code: vItem_Code, ReturnAmount: vReturnAmount };
+                vReturnOrderDetails.push(vDetail);
             });
 
             //alert(JSON.stringify(vPurchasingDetails));
 
             if (vItem > 0) {
-                var vHeaderDetail = { Id: 0, Supplier_Code: vSupplier_Code, PurchasingDate: vPurchasingDate, PurchasingDetails: vPurchasingDetails };
+                var vHeaderDetail = { Id: 0, DeliveryOrder_Id: vDeliveryOrder_Id, ReturnDate: vReturnDate, ReturnOrderDetails: vReturnOrderDetails };
 
                 //alert(JSON.stringify(vHeaderDetail));
 
                 $.ajax({
-                    url: '@Url.Action("SavePurchasing", "Purchasing")',
+                    url: '@Url.Action("SaveRequestReturn", "Return")',
                     data: { models: vHeaderDetail },
                     type: 'post',
                     success: function (result) {
                         if (result.success) {
-                            SuccessCreated();
-                            $('#purchasing-total').html(result.data.Total);
+                            SuccessRequested();
                             $('#reference-code').html(result.data.Reference);
-                            $('input[name=PurchasingDate]').prop('disabled', true);
+                            $('input[name=ReturnDate]').prop('disabled', true);
+                            $('input[name=SellingDate]').prop('disabled', true);
                             $('#txt-search').prop('disabled', true);
                             $('.btn-search').prop('disabled', true);
                             $('.btn-save-items').prop('disabled', true);
-                            $('.btn-add-item').prop('disabled', true);
-                            $('input[name=Quantity]').prop('disabled', true);
-                            $('.btn-remove').prop('disabled', true);
+                            $('input[name=ReturnAmount]').prop('disabled', true);
                             $("#btn-new").show();
                         }
                         else {
@@ -255,56 +200,33 @@
                     }
                 });
             } else {
-                alert('Warning: No item selected!');
+                alert('Warning: No Reference selected!');
             }
         });
 
-        function QuantityUpdate(obj) {
-            var stock = parseInt($(obj).closest('tr').find('input[name=Item_Stock]').val());
-            var maxStock = parseInt(20) - stock;
+        function ReturnAmountUpdate(obj) {
+            var Quantity = parseInt($(obj).closest('tr').find('input[name=Quantity]').val());
+
+            var Item_Name = $(obj).closest('tr').find('input[name=Item_Name]').val();
             //alert($(obj).val());
-            var qty = parseInt($(obj).closest('tr').find('input[name=Quantity]').val()) || 0;
-            var prc = $(obj).closest('tr').find('input[name=Price]').val();
-            var total = qty * prc;
-            if (qty > maxStock) {
-                alert("Maximum stock is 20 Pack/Item. You can only supply maximum " + maxStock +
-                    " pack, because we have already had " + stock + " pack in stock.");
-                $(obj).closest('tr').find('input[name=Quantity]').val(maxStock);
+            var rAm = parseInt($(obj).closest('tr').find('input[name=ReturnAmount]').val()) || 0;
+
+            if (rAm > Quantity) {
+                alert("You're bought only " + Quantity + " pack of " + Item_Name + ".");
+                $(obj).closest('tr').find('input[name=ReturnAmount]').val(Quantity);
+            } else if (rAm <= 0) {
+                alert("Really?");
             }
-            $(obj).closest('tr').find('input[name=Total]').val(total);
-            var grdTotal = 0;
+            //$(obj).closest('tr').find('input[name=Total]').val(total);
+            //var grdTotal = 0;
 
-            $("#purchasing-item-list").find("tr").each(function () {
-                var vTotal = $(this).find("input[name=Total]").val();
-                grdTotal = parseFloat(grdTotal) + parseFloat(vTotal);
-            });
+            //$("#purchasing-item-list").find("tr").each(function () {
+            //    var vTotal = $(this).find("input[name=Total]").val();
+            //    grdTotal = parseFloat(grdTotal) + parseFloat(vTotal);
+            //});
 
-            $("#purchasing-total").html(grdTotal);
+            //$("#purchasing-total").html(grdTotal);
         }
 
-        //function RemoveItem(obj) {
-        //    //$(obj).closest('tr').remove();
-        //    var vItem_Name = $(obj).closest('tr').find('input[name=Item_Name]').val();
-        //    var vItem_Weight = $(obj).closest('tr').find('input[name=Item_Weight]').val();
-
-        //    var remove = confirm("Sure you don't want to supply " + vItem_Weight + " Kg " + vItem_Name + "?");
-        //    if (remove) {
-        //        $(obj).closest('tr').remove();
-        //    }
-
-        //    var qty = $(obj).closest('tr').find('input[name=Quantity]').val();
-        //    var prc = $(obj).closest('tr').find('input[name=Price]').val();
-        //    var total = qty * prc;
-
-        //    $(obj).closest('tr').find('input[name=Total]').val(total);
-        //    var grdTotal = 0;
-
-        //    $("#purchasing-item-list").find("tr").each(function () {
-        //        var vTotal = $(this).find("input[name=Total]").val();
-        //        grdTotal = parseFloat(grdTotal) + parseFloat(vTotal);
-        //    });
-
-        //    $("#purchasing-total").html(grdTotal);
-        //}
     </script>
 }

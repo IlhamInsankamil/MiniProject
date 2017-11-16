@@ -30,11 +30,11 @@ namespace BuahSayur.ViewModel
 
         public decimal Replacement { get; set; }
 
-        [DisplayFormat(DataFormatString = "{0:0}")]
         public decimal Quantity { get; set; }
 
         public decimal Price { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:0}")]
         public decimal? Total { get; set; }
     }
 }

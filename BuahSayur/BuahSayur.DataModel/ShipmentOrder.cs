@@ -15,8 +15,6 @@ namespace BuahSayur.DataModel
 
         public DateTime ShippingDate { get; set; }
 
-        public DateTime? ArrivedDate { get; set; }
-
         [Required]
         [StringLength(50)]
         public string Vehicle { get; set; }
@@ -24,13 +22,6 @@ namespace BuahSayur.DataModel
         [Required]
         [StringLength(50)]
         public string PersonInCharge { get; set; }
-
-        [StringLength(50)]
-        public string ReceivedBy { get; set; }
-
-        [Required]
-        [StringLength(1)]
-        public string DeliveryStatus { get; set; }
 
         public DateTime? Created { get; set; }
 

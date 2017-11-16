@@ -4,6 +4,9 @@
     <thead>
         <tr>
             <th>Action</th>
+            @*<th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.Customer_Username)
             </th>
@@ -22,6 +25,9 @@
                 <td>
                     <button type="button" class="btn btn-success btn-select-selling" data-id="@item.Id" data-reference="@item.Reference" data-dismiss="modal">Select</button>
                 </td>
+                @*<td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>*@
                 <td>
                     @Html.DisplayFor(modelItem => item.Customer_Username)
                 </td>

@@ -14,8 +14,14 @@ namespace BuahSayur.ViewModel
         public int Return_Id { get; set; }
 
         [DisplayName("Return Amount")]
-        public decimal ReturnAmount { get; set; }
+        public string Item_Code { get; set; }
 
-        public decimal Replacement { get; set; }
+        [DisplayName("Item Name")]
+        public string Item_Name { get; set; }
+
+        public decimal Quantity { get; set; }
+
+        [DisplayName("Return Amount")]
+        public decimal ReturnAmount { get; set; }
     }
 }

@@ -13,6 +13,7 @@ namespace BuahSayur.DataModel
         {
             DeliveryOrderDetails = new HashSet<DeliveryOrderDetail>();
             PurchasingOrderDetails = new HashSet<PurchasingOrderDetail>();
+            ReturnOrderDetails = new HashSet<ReturnOrderDetail>();
         }
 
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -54,5 +55,7 @@ namespace BuahSayur.DataModel
         public virtual ICollection<DeliveryOrderDetail> DeliveryOrderDetails { get; set; }
 
         public virtual ICollection<PurchasingOrderDetail> PurchasingOrderDetails { get; set; }
+
+        public virtual ICollection<ReturnOrderDetail> ReturnOrderDetails { get; set; }
     }
 }

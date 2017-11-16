@@ -208,6 +208,12 @@ namespace BuahSayur.DataModel
                 .HasForeignKey(e => e.Item_Code)
                 .WillCascadeOnDelete(false);
 
+            modelBuilder.Entity<Item>()
+                .HasMany(e => e.ReturnOrderDetails)
+                .WithRequired(e => e.Item)
+                .HasForeignKey(e => e.Item_Code)
+                .WillCascadeOnDelete(false);
+
             modelBuilder.Entity<Province>()
                 .Property(e => e.Code)
                 .IsUnicode(false);
@@ -295,11 +301,11 @@ namespace BuahSayur.DataModel
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<ReturnOrderDetail>()
-                .Property(e => e.ReturnAmount)
-                .HasPrecision(18, 4);
+                .Property(e => e.Item_Code)
+                .IsUnicode(false);
 
             modelBuilder.Entity<ReturnOrderDetail>()
-                .Property(e => e.Replacement)
+                .Property(e => e.ReturnAmount)
                 .HasPrecision(18, 4);
 
             modelBuilder.Entity<ReturnOrderDetail>()
@@ -316,15 +322,6 @@ namespace BuahSayur.DataModel
 
             modelBuilder.Entity<ShipmentOrder>()
                 .Property(e => e.PersonInCharge)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<ShipmentOrder>()
-                .Property(e => e.ReceivedBy)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<ShipmentOrder>()
-                .Property(e => e.DeliveryStatus)
-                .IsFixedLength()
                 .IsUnicode(false);
 
             modelBuilder.Entity<ShipmentOrder>()

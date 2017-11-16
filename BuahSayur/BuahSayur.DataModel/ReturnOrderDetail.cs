@@ -13,9 +13,11 @@ namespace BuahSayur.DataModel
 
         public int Return_Id { get; set; }
 
-        public decimal ReturnAmount { get; set; }
+        [Required]
+        [StringLength(10)]
+        public string Item_Code { get; set; }
 
-        public decimal Replacement { get; set; }
+        public decimal ReturnAmount { get; set; }
 
         public DateTime? Created { get; set; }
 
@@ -26,6 +28,8 @@ namespace BuahSayur.DataModel
 
         [StringLength(10)]
         public string ModifiedBy { get; set; }
+
+        public virtual Item Item { get; set; }
 
         public virtual ReturnOrder ReturnOrder { get; set; }
     }

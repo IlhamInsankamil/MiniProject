@@ -18,8 +18,28 @@ namespace BuahSayur.MVC.Controllers
 
         public ActionResult GetSellingDetailByReference(string reference)
         {
-            List<DeliveryOrderDetailViewModel> models = ReturnDataAccess.GetSellingDetailByReference(reference);
+            List<DeliveryOrderDetailViewModel> models =  ReturnDataAccess.GetSellingDetailByReference(reference);
             return View("ReturnList" , models);
         }
+
+        [HttpPost]
+        public ActionResult SaveRequestReturn(ReturnOrderHeaderViewModel models)
+        {
+            if (ModelState.IsValid)
+            {
+                ReturnResult result = ReturnDataAccess.Save(models);
+
+                if (result.Success)
+                {
+                    return Json(new { success = true, message = "Success", data = result }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json(new { success = false, message = ReturnDataAccess.Message }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            return Json(new { success = false, message = "Invalid Model State!" }, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }

@@ -34,6 +34,5 @@ namespace BuahSayur.ViewModel
         }
 
         public string Reference { get; set; }
-        public decimal Total { get; set; }
     }
 }
