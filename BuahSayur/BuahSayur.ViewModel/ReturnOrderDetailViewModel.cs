@@ -23,5 +23,11 @@ namespace BuahSayur.ViewModel
 
         [DisplayName("Return Amount")]
         public decimal ReturnAmount { get; set; }
+
+        public decimal Replacement { get; set; }
+
+        public decimal Shortage { get; set; }
+
+        public string Status { get; set; }
     }
 }

@@ -129,12 +129,6 @@ namespace BuahSayur.DataModel
                 .HasForeignKey(e => e.DeliveryOrder_Id)
                 .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<DeliveryOrder>()
-                .HasMany(e => e.ShipmentOrders)
-                .WithRequired(e => e.DeliveryOrder)
-                .HasForeignKey(e => e.DeliveryOrder_Id)
-                .WillCascadeOnDelete(false);
-
             modelBuilder.Entity<DeliveryOrderDetail>()
                 .Property(e => e.Item_Code)
                 .IsUnicode(false);
@@ -168,7 +162,11 @@ namespace BuahSayur.DataModel
                 .IsUnicode(false);
 
             modelBuilder.Entity<Item>()
-                .Property(e => e.Price)
+                .Property(e => e.Price_Selling)
+                .HasPrecision(19, 4);
+
+            modelBuilder.Entity<Item>()
+                .Property(e => e.Price_Purchasing)
                 .HasPrecision(19, 4);
 
             modelBuilder.Entity<Item>()
@@ -309,6 +307,19 @@ namespace BuahSayur.DataModel
                 .HasPrecision(18, 4);
 
             modelBuilder.Entity<ReturnOrderDetail>()
+                .Property(e => e.Replacement)
+                .HasPrecision(18, 4);
+
+            modelBuilder.Entity<ReturnOrderDetail>()
+                .Property(e => e.Shortage)
+                .HasPrecision(18, 4);
+
+            modelBuilder.Entity<ReturnOrderDetail>()
+                .Property(e => e.Status)
+                .IsFixedLength()
+                .IsUnicode(false);
+
+            modelBuilder.Entity<ReturnOrderDetail>()
                 .Property(e => e.CeatedBy)
                 .IsUnicode(false);
 
@@ -323,6 +334,10 @@ namespace BuahSayur.DataModel
             modelBuilder.Entity<ShipmentOrder>()
                 .Property(e => e.PersonInCharge)
                 .IsUnicode(false);
+
+            modelBuilder.Entity<ShipmentOrder>()
+                .Property(e => e.Fee)
+                .HasPrecision(19, 4);
 
             modelBuilder.Entity<ShipmentOrder>()
                 .Property(e => e.CreatedBy)

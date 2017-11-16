@@ -16,8 +16,11 @@ namespace BuahSayur.ViewModel
 
         public string Name { get; set; }
 
-        [DisplayName("Price (/pack)")]
-        public decimal Price { get; set; }
+        [DisplayName("Selling Price (/pack)")]
+        public decimal Price_Selling { get; set; }
+
+        [DisplayName("Purchasing Price (/pack)")]
+        public decimal Price_Purchasing { get; set; }
 
         public string Category { get; set; }
 

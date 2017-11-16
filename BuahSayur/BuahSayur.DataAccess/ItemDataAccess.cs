@@ -24,7 +24,8 @@ namespace BuahSayur.DataAccess
                               Id = i.Id,
                               Code = i.Code,
                               Name = i.Name,
-                              Price = i.Price,
+                              Price_Selling = i.Price_Selling,
+                              Price_Purchasing = i.Price_Purchasing,
                               Category = i.Category,
                               Stock = i.Stock,
                               Weight = i.Weight,
@@ -49,7 +50,8 @@ namespace BuahSayur.DataAccess
                               Id = i.Id,
                               Code = i.Code,
                               Name = i.Name,
-                              Price = i.Price,
+                              Price_Selling = i.Price_Selling,
+                              Price_Purchasing = i.Price_Purchasing,
                               Category = i.Category,
                               Stock = i.Stock,
                               Weight = i.Weight,
@@ -73,7 +75,8 @@ namespace BuahSayur.DataAccess
                         {
                             Code = model.Code,
                             Name = model.Name,
-                            Price = model.Price,
+                            Price_Selling = model.Price_Selling,
+                            Price_Purchasing = model.Price_Purchasing,
                             Category = model.Category,
                             Stock = model.Stock,
                             Weight = model.Weight,
@@ -93,7 +96,8 @@ namespace BuahSayur.DataAccess
                         {
                             item.Code = model.Code;
                             item.Name = model.Name;
-                            item.Price = model.Price;
+                            item.Price_Selling = model.Price_Selling;
+                            item.Price_Purchasing = model.Price_Purchasing;
                             item.Category = model.Category;
                             item.Stock = model.Stock;
                             item.Weight = model.Weight;
@@ -149,7 +153,7 @@ namespace BuahSayur.DataAccess
                               Id = it.Id,
                               Code = it.Code,
                               Name = it.Name,
-                              Price = it.Price,
+                              Price_Selling = it.Price_Selling,
                               Category = it.Category,
                               Stock = it.Stock,
                               Weight = it.Weight,
@@ -173,7 +177,7 @@ namespace BuahSayur.DataAccess
                               Id = it.Id,
                               Code = it.Code,
                               Name = it.Name,
-                              Price = it.Price,
+                              Price_Purchasing = it.Price_Purchasing,
                               Category = it.Category,
                               Stock = it.Stock,
                               Weight = it.Weight,

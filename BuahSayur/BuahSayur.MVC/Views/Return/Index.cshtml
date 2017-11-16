@@ -85,10 +85,6 @@
     <script type="text/javascript">
         $(document).ready(function () {
             $("#btn-new").hide();
-            $('#Price').prop('disabled', true);
-            //$('#Name').prop('cols', '40');
-            $('#FullAddress').prop('readonly', true);
-            $('#FullAddress').prop('cols', '40');
         });
 
         setInterval(function () {
@@ -167,8 +163,13 @@
                 vItem = vItem + 1;
                 var vItem_Code = $(this).find("input[name=Item_Code]").val();
                 var vReturnAmount = $(this).find("input[name=ReturnAmount]").val() || 0;
-                var vDetail = { Item_Code: vItem_Code, ReturnAmount: vReturnAmount };
-                vReturnOrderDetails.push(vDetail);
+                var vReplacement = $(this).find("input[name=Replacement]").val() || 0;
+                var vShortage = $(this).find("input[name=Shortage]").val() || 0;
+                var vStatus = $(this).find("input[name=Status]:checked").val();
+                var vDetail = { Item_Code: vItem_Code, ReturnAmount: vReturnAmount, Replacement: vReplacement, Shortage: vShortage, Status: vStatus };
+                if (vReturnAmount != 0) {
+                    vReturnOrderDetails.push(vDetail);
+                }
             });
 
             //alert(JSON.stringify(vPurchasingDetails));
@@ -188,6 +189,9 @@
                             $('#reference-code').html(result.data.Reference);
                             $('input[name=ReturnDate]').prop('disabled', true);
                             $('input[name=SellingDate]').prop('disabled', true);
+                            $('input[name=Replacement]').prop('disabled', true);
+                            $('input[name=Shortage]').prop('disabled', true);
+                            $('input[name=Status]').prop('disabled', true);
                             $('#txt-search').prop('disabled', true);
                             $('.btn-search').prop('disabled', true);
                             $('.btn-save-items').prop('disabled', true);

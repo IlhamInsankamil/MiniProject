@@ -12,18 +12,18 @@
             <th>
                 @Html.DisplayNameFor(model => model.Quantity)
             </th>
-            @*<th>
-                @Html.DisplayNameFor(model => model.Price)
-            </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.ReturnAmount)
             </th>
-            @*<th>
+            <th>
                 @Html.DisplayNameFor(model => model.Replacement)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Total)
-            </th>*@
+                @Html.DisplayNameFor(model => model.Shortage)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
         </tr>
     </thead>
     <tbody id="return-detail-list">
@@ -31,7 +31,7 @@
         {
             <tr>                
                 <td>
-                    <input type="hidden" name="Return_Id" value="@item.Id" class="form-control" disabled />
+                    @*<input type="hidden" name="Return_Id" value="@item.Id" class="form-control" disabled />*@
                     <input type="text" name="Item_Code" value="@item.Item_Code" class="form-control" disabled />
                     @*@Html.DisplayFor(modelItem => item.Item_Code)*@
                 </td>
@@ -43,22 +43,36 @@
                     <input type="text" name="Quantity" value="@item.Quantity.ToString("0")" class="form-control" disabled />
                     @*@Html.DisplayFor(modelItem => item.Quantity)*@
                 </td>
-                @*<td>
-                    <input type="text" name="Price" value="@item.Price.ToString("N")" class="form-control" disabled />
-                    @Html.DisplayFor(modelItem => item.Price)
-                </td>*@
                 <td class="warning">
                     <input type="text" name="ReturnAmount" onkeyup="ReturnAmountUpdate(this);" value="@item.ReturnAmount" class="form-control" />
                     @*@Html.DisplayFor(modelItem => item.ReturnAmount)*@
                 </td>
-                @*<td>
+                <td>
                     <input type="text" name="Replacement" value="@item.Replacement" class="form-control" />
-                    @Html.DisplayFor(modelItem => item.Replacement)
+                    @*@Html.DisplayFor(modelItem => item.Replacement)*@
                 </td>
                 <td>
-                    <input type="text" name="Total" value="@item.Total.ToString()" class="form-control" disabled />
-                    @Html.DisplayFor(modelItem => item.Total)
-                </td>*@
+                    <input type="text" name="Shortage" value="@item.Shortage" class="form-control" />
+                    @*@Html.DisplayFor(modelItem => item.Shortage)*@
+                </td>
+                <td>
+                    @*<input type="text" name="Replacement" value="@item.Replacement" class="form-control" />*@
+                    @*@Html.DisplayFor(modelItem => item.Status)*@
+                    <form>
+                        <div class="radio">
+                            <label>
+                                <input name="Status" value="U" type="radio"> Unfulfilled
+                            </label>
+                        </div>
+                        <div class="radio">
+                            <label>
+                                <input name="Status" value="F" checked="" type="radio"> Fulfilled
+                            </label>
+                        </div>
+                    </form>
+                    @*@Html.RadioButtonFor(modelItem => item.Status, "U") Unfulfilled
+                    @Html.RadioButtonFor(modelItem => item.Status, "F") Fulfilled*@
+                </td>
             </tr>
         }
     </tbody>

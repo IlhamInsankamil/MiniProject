@@ -42,7 +42,7 @@
                 </td>
                 <td class="warning">
                     <input type="hidden" name="Item_Stock" value="@item.Item_Stock" />
-                    <input type="text" name="Quantity" onkeyup="QuantityUpdate(this);" value="@item.Quantity" class="form-control" />
+                    <input type="text" name="Quantity" onkeyup="QuantityUpdate(this);" value="@item.Quantity" class="form-control" min="0" />
                     @*@Html.DisplayFor(modelItem => item.Quantity)*@
                 </td>
                 <td>

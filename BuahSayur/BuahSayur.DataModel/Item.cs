@@ -28,7 +28,10 @@ namespace BuahSayur.DataModel
         public string Name { get; set; }
 
         [Column(TypeName = "money")]
-        public decimal Price { get; set; }
+        public decimal Price_Selling { get; set; }
+
+        [Column(TypeName = "money")]
+        public decimal Price_Purchasing { get; set; }
 
         [Required]
         [StringLength(1)]

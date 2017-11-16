@@ -86,9 +86,9 @@ namespace BuahSayur.DataAccess
                 }
             }
             catch (Exception ex)
-            {
-                //Message = ex.Message;
-                throw;
+            {                
+                Message = ex.Message;
+                //throw;
             }
 
             return result;

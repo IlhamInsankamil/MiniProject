@@ -65,7 +65,10 @@ namespace BuahSayur.DataAccess
                         {
                             Return_Id = returnOrder.Id,
                             Item_Code = item.Item_Code,
-                            ReturnAmount = item.ReturnAmount
+                            ReturnAmount = item.ReturnAmount,
+                            Replacement = item.Replacement,
+                            Shortage = item.Shortage,
+                            Status = item.Status
                         };
                         db.ReturnOrderDetails.Add(returnOrderDetail);
                     }
@@ -111,49 +114,5 @@ namespace BuahSayur.DataAccess
 
             return result;
         }
-
-        //public static bool Save(List<ItemViewModel> models)
-        //{
-        //    bool result = true;
-
-        //    try
-        //    {
-        //        int doId = SellingDataAccess.SelectedDeliveryOrder.Id;
-        //        using (var db = new BuahSayurContext())
-        //        {
-        //            foreach (var model in models)
-        //            {
-        //                //Item iExist = db.Items.Where();
-        //            }
-        //            //ReturnOrder returnOrder = new ReturnOrder
-        //            //{
-        //            //    Id = 1,
-        //            //    DeliveryOrder_Id = models.DeliveryOrder_Id,
-        //            //    ReturnDate = models.ReturnDate
-        //            //};
-        //            //db.ReturnOrders.Add(returnOrder);
-
-        //            //foreach (var item in models.ReturnOrderDetails)
-        //            //{
-        //            //    ReturnOrderDetail returnOrderDetail = new ReturnOrderDetail
-        //            //    {
-        //            //        Return_Id = returnOrder.Id,
-        //            //        ReturnAmount = item.ReturnAmount,
-        //            //        Replacement = item.Replacement
-        //            //    };
-        //            //    db.ReturnOrderDetails.Add(returnOrderDetail);
-        //            //}
-        //            //db.SaveChanges();
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        result = false;
-        //        Message = ex.Message;
-        //        //throw;
-        //    }
-
-        //    return result;
-        //}
     }
 }

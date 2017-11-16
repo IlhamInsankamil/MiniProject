@@ -10,7 +10,10 @@
                 @Html.DisplayNameFor(model => model.Name)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Price)
+                @Html.DisplayNameFor(model => model.Price_Purchasing)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price_Selling)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.CategoryString)
@@ -41,7 +44,10 @@
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>
                 <td>
-                    Rp. @Html.DisplayFor(modelItem => item.Price)
+                    Rp. @Html.DisplayFor(modelItem => item.Price_Purchasing)
+                </td>
+                <td>
+                    Rp. @Html.DisplayFor(modelItem => item.Price_Selling)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.CategoryString)

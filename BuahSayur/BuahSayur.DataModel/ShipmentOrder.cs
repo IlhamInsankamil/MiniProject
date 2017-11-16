@@ -23,6 +23,9 @@ namespace BuahSayur.DataModel
         [StringLength(50)]
         public string PersonInCharge { get; set; }
 
+        [Column(TypeName = "money")]
+        public decimal? Fee { get; set; }
+
         public DateTime? Created { get; set; }
 
         [StringLength(10)]
@@ -32,7 +35,5 @@ namespace BuahSayur.DataModel
 
         [StringLength(10)]
         public string ModifiedBy { get; set; }
-
-        public virtual DeliveryOrder DeliveryOrder { get; set; }
     }
 }

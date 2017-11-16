@@ -19,6 +19,14 @@ namespace BuahSayur.DataModel
 
         public decimal ReturnAmount { get; set; }
 
+        public decimal? Replacement { get; set; }
+
+        public decimal? Shortage { get; set; }
+
+        [Required]
+        [StringLength(1)]
+        public string Status { get; set; }
+
         public DateTime? Created { get; set; }
 
         [StringLength(10)]

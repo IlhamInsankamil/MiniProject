@@ -182,9 +182,9 @@
                             '<td><input type="text" name="Item_Code" value="' + dataItem.Code + '" class="form-control" disabled/></td >' +
                             '<td><input type="text" name="Item_Name" value="' + dataItem.Name + '" class="form-control" disabled /></td>' +
                             '<td><input type="text" name="Item_Weight" value="' + dataItem.Weight + '" class="form-control" disabled /></td>' +
-                            '<td class="warning"><input type="hidden" name="Item_Stock" value="' + dataItem.Stock + '" class="form-control" />' +
+                            '<td class="warning"><input type="hidden" name="Item_Stock" value="' + dataItem.Stock + '" class="form-control" min="0"/>' +
                             '<input type="text" name="Quantity" onkeyup="QuantityUpdate(this);" value="0" class="form-control"/></td>' +
-                            '<td><input type="text" name="Price" value="' + dataItem.Price + '" class="form-control" disabled/></td>' +
+                            '<td><input type="text" name="Price" value="' + dataItem.Price_Selling + '" class="form-control" disabled/></td>' +
                             '<td><input type="text" name="Total" value="0.00" class="form-control" disabled/></td>' +
                             '<td><button type="button" class="btn btn-danger btn-remove" onclick="RemoveItem(this)">Remove</button></td></tr>';
 
