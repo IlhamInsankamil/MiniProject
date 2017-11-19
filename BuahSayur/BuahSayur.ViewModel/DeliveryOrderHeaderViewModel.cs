@@ -20,6 +20,11 @@ namespace BuahSayur.ViewModel
 
         [DisplayName("Selling Date"), DisplayFormat(DataFormatString = "{0:ddd, dd/MM/yyyy}")]
         public DateTime SellingDate { get; set; }
+
+        [DisplayName("Shipping Date"), DisplayFormat(DataFormatString = "{0:ddd, dd/MM/yyyy}")]
+        public DateTime ShippingDate { get; set; }
+
+
         public string SellingDateString 
         { 
             get 

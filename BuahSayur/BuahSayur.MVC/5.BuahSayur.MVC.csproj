@@ -126,6 +126,7 @@
     <Compile Include="Controllers\PurchasingController.cs" />
     <Compile Include="Controllers\ReturnController.cs" />
     <Compile Include="Controllers\SellingController.cs" />
+    <Compile Include="Controllers\ShipmentController.cs" />
     <Compile Include="Controllers\SupplierController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -316,6 +317,9 @@
     <Content Include="Views\Return\DeliveryForm.cshtml" />
     <Content Include="Views\Selling\FilterList.cshtml" />
     <Content Include="Views\Return\ReturnList.cshtml" />
+    <Content Include="Views\Shipment\DeliveryForm.cshtml" />
+    <Content Include="Views\Shipment\Index.cshtml" />
+    <Content Include="Views\Shipment\ShippingList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

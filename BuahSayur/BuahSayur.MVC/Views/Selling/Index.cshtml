@@ -255,13 +255,15 @@
             //alert($(obj).val());
             var qty = parseInt($(obj).closest('tr').find('input[name=Quantity]').val()) || 0;
             var prc = parseInt($(obj).closest('tr').find('input[name=Price]').val());
-            var total = qty * prc;
+            var total = 0;
 
             if (qty > stock) {
                 alert("Only left " + stock + " pack in stock.");
                 $(obj).closest('tr').find('input[name=Quantity]').val(stock);
+                qty = stock;
             }
 
+            var total = qty * prc;
             $(obj).closest('tr').find('input[name=Total]').val(total);
             var grdTotal = 0;
 
