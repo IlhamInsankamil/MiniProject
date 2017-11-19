@@ -1,0 +1,222 @@
+﻿@{
+    ViewBag.Title = "Shipment";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="well">
+    <h2>@ViewBag.Title</h2>
+</div>
+<div class="panel-group">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <div class="row">
+                <div class="col-md-3">
+                    <input id="txt-search" type="text" class="form-control" placeholder="Input Reference Code" />
+                </div>
+                <div class="col-md-2">
+                    <button type="button" id="btn-add" class="btn btn-search btn-primary" title="Search Selling">
+                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span> Search Selling
+                    </button>
+                </div>
+                <div class="col-md-4">
+                    <button type="button" id="btn-new" class="btn" title="New Transaction" onclick="window.location.href='@Url.Action("Index", "Return")'">
+                        New Transaction
+                    </button>
+                </div>
+                <div class="col-lg-3">
+                    <h6>Ref. Code: <span id="reference-code">No Reference</span></h6>
+                </div>
+            </div>
+        </div>
+        <div class="panel-body">
+            <div id="selling-info">
+                @Html.Partial("DeliveryForm")
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modal-form" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="panel-group">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class=" modal-body panel-body">
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="alert alert-success" id="success-create" hidden>
+    <button type="button" class="close" data-dismiss="alert">x</button>
+    <strong>Success! </strong>
+    New Return Order added successfully.
+</div>
+
+<div class="panel-group">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            @*<button type="button" class="btn btn-primary btn-add-item">
+                    Add Item
+                </button>*@
+            <button type="button" class="btn btn-success btn-save-shipping">
+                Save Shipping
+            </button>
+        </div>
+        <div class="shipping-list">
+
+        </div>
+    </div>
+
+</div>
+
+@section Scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#btn-new").hide();
+            $('#Price').prop('disabled', true);
+            //$('#Name').prop('cols', '40');
+            $('#FullAddress').prop('readonly', true);
+            $('#FullAddress').prop('cols', '40');
+        });
+
+        setInterval(function () {
+            $("#btn-new").toggleClass("btn-warning");
+        }, 500)
+
+        function SuccessCreated() {
+            $("#success-create").fadeTo(3000, 500).slideUp(500, function () {
+                $("#success-create").slideUp(500);
+            });
+        }
+
+        $('.datepicker').datetimepicker({
+            format: "ddd, DD/MM/YYYY",
+            defaultDate: Date.now(),
+            minDate: moment().millisecond(0).second(0).minute(0).hour(0) // enable today's date and set mindate as this date (moment)
+        });
+
+
+        // Search and Select DeliveryOrder
+        $('.btn-search').click(function () {
+            SelectSelling($('#txt-search').val());
+            SelectSellingDetail($('#txt-search').val());
+        });
+
+        function SelectSelling(reference) {
+            $.ajax({
+                url: '@Url.Action("GetSellingByReference", "Selling")',
+                type: 'get',
+                data: { reference: reference },
+                success: function (result) {
+                    if (result.success) {
+                        var sel = result.data;
+                        $("#Id").val(sel.Id);
+                        $("#Customer_Username").val(sel.Customer_Username);
+                        $("#Reference").val(sel.Reference);
+                        $("#SellingDate").val(sel.SellingDateString);
+                        //$("#ShippingDate").val(sel.SellingDateString);
+                    }
+                    else {
+                        SellingList();
+                    }
+                }
+            });
+        }
+
+        function SelectSellingDetail(reference) {
+            $.ajax({
+                url: '@Url.Action("GetSellingDetailByReference", "Shipment")',
+                type: 'get',
+                data: { reference: reference },
+                success: function (result) {
+                    $(".shipping-list").html(result);
+                }
+            });
+        }
+
+        function SellingList() {
+            $.ajax({
+                url: '@Url.Action("FilterList","Selling")',
+                type: 'get',
+                data: { filterString: $('#txt-search').val() },
+                success: function (result) {
+                    $(".modal-body").html(result);
+                    $("#modal-form").modal("show");
+                }
+            });
+
+
+        }
+
+        $('.btn-save-shipping').click(function () {
+            //var vShipping = [];
+            var vDeliveryOrder_Id = $("#Id").val();
+            var vShippingDate = $("#ShippingDate").val();
+            var vVehicle = $("#Vehicle").val();
+            var vPersonInCharge = $("#PersonInCharge").val();
+            var vShippingFee = $("#Fee").val();
+            var vDetail = { DeliveryOrder_Id: vDeliveryOrder_Id, ShippingDate: vShippingDate, Vehicle: vVehicle, PersonInCharge: vPersonInCharge, Fee: vShippingFee };
+
+            alert(JSON.stringify(vDetail));
+
+            $.ajax({
+                url: '@Url.Action("SaveShipment", "Shipment")',
+                data: { models: vDetail },
+                type: 'post',
+                success: function (result) {
+                    if (result.success) {
+                        SuccessCreated();
+                        //$('#purchasing-total').html(result.data.Total);
+                        //$('#reference-code').html(result.data.Reference);
+                        $('input[name=ShippingDate]').prop('disabled', true);
+                        $('input[name=Vehicle]').prop('disabled', true);
+                        $('input[name=PersonInCharge]').prop('disabled', true);
+                        $('#txt-search').prop('disabled', true);
+                        $('.btn-search').prop('disabled', true);
+                        $('.btn-save-items').prop('disabled', true);
+                        $('.btn-remove').prop('disabled', true);
+                        $("#btn-new").show();
+
+                    }
+                    else {
+                        alert('Error: ' + result.message);
+                    }
+                }
+            });
+
+        });
+
+        function CalculateFee() {
+            $("#shippinglist tr").each(function () {              
+                var qty = parseInt($("#shippinglist tr").find('input[name=Quantity]').val()) || 0;
+                var wgt = parseInt($("#shippinglist tr").find('input[name=Item_Weight]').val()) || 0;
+                var totalweight = qty * wgt;
+                $("#shippinglist tr").find('input[name=TotalWeight]').val(totalweight);             
+
+            });
+            var grdTotal = 0;
+            $("#shippinglist").find("tr").each(function () {
+                var vTotal = $("#shippinglist tr").find('input[name=TotalWeight]').val();
+                grdTotal = parseFloat(grdTotal) + parseFloat(vTotal);
+            });
+            alert(grdTotal);
+            var total = 0;
+            if (grdTotal < 2) total = 3000;
+            else if (grdTotal > 2 && grdTotal < 5) total = 4000;
+            else total = 5000;
+            $("#shippingfee").html(total);
+            $("#Fee").val(total);
+
+        };
+
+    </script>
+}

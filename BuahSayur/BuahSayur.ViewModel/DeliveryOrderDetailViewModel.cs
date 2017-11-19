@@ -21,7 +21,11 @@ namespace BuahSayur.ViewModel
         public string Item_Name { get; set; }
 
         [DisplayName("Weight")]
-        public string Item_Weight { get; set; }
+        public decimal Item_Weight { get; set; }
+
+        [DisplayName("Size (m³)")]
+        public decimal Item_Size { get; set; }
+
 
         public string Item_Stock { get; set; }
 
@@ -42,5 +46,7 @@ namespace BuahSayur.ViewModel
 
         [DisplayFormat(DataFormatString = "{0:0}")]
         public decimal? Total { get; set; }
+
+        public decimal TotalWeight { get; set; }
     }
 }

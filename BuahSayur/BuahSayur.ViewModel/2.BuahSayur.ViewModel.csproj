@@ -51,6 +51,7 @@
     <Compile Include="PurchasingOrderHeaderViewModel.cs" />
     <Compile Include="ReturnOrderDetailViewModel.cs" />
     <Compile Include="ReturnOrderHeaderViewModel.cs" />
+    <Compile Include="ShipmentOrderViewModel.cs" />
     <Compile Include="SupplierViewModel.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
