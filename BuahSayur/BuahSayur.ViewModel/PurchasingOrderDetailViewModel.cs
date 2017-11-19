@@ -20,7 +20,7 @@ namespace BuahSayur.ViewModel
         [DisplayName("Item")]
         public string Item_Name { get; set; }
 
-        [DisplayName("Weight")]
+        [DisplayName("Weight (Kg)"), DisplayFormat(DataFormatString = "{0:0.0}")]
         public string Item_Weight { get; set; }
 
         public string Item_Stock { get; set; }

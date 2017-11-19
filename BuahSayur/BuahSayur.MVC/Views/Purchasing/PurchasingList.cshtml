@@ -47,7 +47,7 @@
                     @*@Html.DisplayFor(modelItem => item.Quantity)*@
                 </td>
                 <td>
-                    <input type="text" name="Price" value="(parseInt(@item.Price) - parseInt(5000))" class="form-control" disabled />
+                    <input type="text" name="Price" value="@item.Price" class="form-control" disabled />
                     @*@Html.DisplayFor(modelItem => item.Price)*@
                 </td>
                 <td>

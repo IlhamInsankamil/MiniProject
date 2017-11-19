@@ -93,5 +93,52 @@ namespace BuahSayur.DataAccess
 
             return result;
         }
+
+        public static bool Update(SupplierViewModel model)
+        {
+            bool result = true;
+            try
+            {
+                using (var db = new BuahSayurContext())
+                {
+                    if (model.Id == 0)
+                    {
+                        Supplier supplier = new Supplier
+                        {
+                            Code = model.Code,
+                            Name = model.Name,
+                            Address = model.Address,
+                            City_Code = model.City_Code,
+                            IsActivated = model.IsActivated,
+                            Created = DateTime.Now,
+                            CreatedBy = "Ilham"
+                        };
+                        db.Suppliers.Add(supplier);
+                        db.SaveChanges();
+                    }
+                    else
+                    {
+                        Supplier supplier = db.Suppliers.Where(o => o.Id == model.Id).FirstOrDefault();
+                        if (supplier != null)
+                        {
+                            supplier.Code = model.Code;
+                            supplier.Name = model.Name;
+                            supplier.Address = model.Address;
+                            supplier.City_Code = model.City_Code;
+                            supplier.IsActivated = model.IsActivated;
+                            supplier.Modified = DateTime.Now;
+                            supplier.ModifiedBy = "Ilham";
+                            db.SaveChanges();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Message = ex.Message;
+                result = false;
+            }
+            return result;
+        }
     }
 }

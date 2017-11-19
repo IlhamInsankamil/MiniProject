@@ -45,5 +45,40 @@ namespace BuahSayur.MVC.Controllers
             }
             return Json(new { success = false, message = "Invalid Model State!" }, JsonRequestBehavior.AllowGet);
         }
+
+        public ActionResult NewSupplier()
+        {
+            ViewBag.ProvinceList = new SelectList(ProvinceDataAccess.GetAll(), "Code", "Name");
+            ViewBag.CityList = new SelectList(CityDataAccess.GetByProvince(""), "Code", "Name");  
+            SupplierViewModel model = new SupplierViewModel();
+            return PartialView("_SupplierForm", model);
+        }
+
+        [HttpPost]
+        public ActionResult NewSupplier(SupplierViewModel model)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    if (PurchasingDataAccess.Update(model))
+                    {
+                        return Json(new { success = true, message = "Success", data = model }, JsonRequestBehavior.AllowGet);
+                    }
+                    else
+                    {
+                        return Json(new { success = false, message = PurchasingDataAccess.Message }, JsonRequestBehavior.AllowGet);
+                    }
+                }
+                else
+                {
+                    return Json(new { success = false, message = "Please fullfill required fields!" }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }

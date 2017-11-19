@@ -12,14 +12,18 @@ namespace BuahSayur.ViewModel
     {
         public int Id { get; set; }
 
+        [RegularExpression(@"[A-Z0-9]{7}$", ErrorMessage = "Code must be 7 characters. Contains Number and Letters(in Capitol).")]
         public string Code { get; set; }
 
+        [RegularExpression(@"[A-Za-z\s]{0,}", ErrorMessage = "Item name should only Letters.")]
         public string Name { get; set; }
 
         [DisplayName("Selling Price (/pack)")]
+        [RegularExpression("[0-9]{0,}", ErrorMessage = "Must be a number and not minus.")]
         public decimal Price_Selling { get; set; }
 
         [DisplayName("Purchasing Price (/pack)")]
+        [RegularExpression("[0-9]{0,}", ErrorMessage = "Must be a number and not minus.")]
         public decimal Price_Purchasing { get; set; }
 
         public string Category { get; set; }
@@ -42,12 +46,15 @@ namespace BuahSayur.ViewModel
         }
 
         [DisplayName("Stock (pack)"), DisplayFormat(DataFormatString = "{0:0}")]
+        [RegularExpression("[0-9]{0,}", ErrorMessage = "Must be a number and not minus.")]
         public decimal Stock { get; set; }
 
         [DisplayName("Weight (Kg)"), DisplayFormat(DataFormatString = "{0:0.0}")]
+        [RegularExpression("[0-9]{0,}", ErrorMessage = "Must be a number and not minus.")]
         public decimal Weight { get; set; }
 
-        [DisplayName("Size (m³)")]
+        [DisplayName("Size (m³)"), DisplayFormat(DataFormatString = "{0:0.00}")]
+        [RegularExpression("[0-9]{0,}", ErrorMessage = "Must be a number and not minus.")]
         public decimal Size { get; set; }
 
         public bool IsActivated { get; set; }

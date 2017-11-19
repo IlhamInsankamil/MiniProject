@@ -1,7 +1,7 @@
 ﻿@model BuahSayur.ViewModel.SupplierViewModel
 
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("NewSupplier", "Purchasing", FormMethod.Post, new { id = "supplier-form" }))
 {
     @Html.AntiForgeryToken()
 
@@ -61,7 +61,7 @@
 
         <div class="form-group modal-footer">
             <div class="col-md-offset-2 col-md-10">
-                <input type="button" value="Create" class="btn btn-primary btn-create-conf" />
+                <input type="submit" value="Create" class="btn btn-primary btn-create-conf" />
                 <input type="button" value="Cancel" class="btn btn-default" data-dismiss="modal" />
             </div>
         </div>
@@ -79,34 +79,6 @@
             data: { provinceCode: $(this).val() },
             success: function (result) {
                 $("#City_Code").html(result);
-            }
-        });
-    });
-
-    $(".btn-create-conf").click(function () {
-        var item = {
-            Id: 0,
-            Code: $("#Code").val(),
-            Name: $("#Name").val(),
-            Address: $("#Address").val(),
-            //Province_Code: $("#Province_Code").val(),
-            City_Code: $("#City_Code").val(),
-            IsActivated: $("#IsActivated").is(":checked")
-        };
-        //alert(JSON.stringify(item));
-        $.ajax({
-            url: '@Url.Action("Create", "Supplier")',
-            type: 'post',
-            data: { model: item },
-            success: function (result) {
-                if (result.success) {
-                    $("#modal-form").modal("hide");
-                    ShowList();
-                    SuccessCreated();
-                    //alert("Create Succesful");
-                } else {
-                    alert('Error: ' + result.message);
-                }
             }
         });
     });

@@ -61,17 +61,15 @@
                     <form>
                         <div class="radio">
                             <label>
-                                <input name="Status" value="U" type="radio"> Unfulfilled
+                                <input name="Status" value="U" checked="" type="radio"> Unfulfilled
                             </label>
                         </div>
                         <div class="radio">
                             <label>
-                                <input name="Status" value="F" checked="" type="radio"> Fulfilled
+                                <input name="Status" value="F" type="radio"> Fulfilled
                             </label>
                         </div>
                     </form>
-                    @*@Html.RadioButtonFor(modelItem => item.Status, "U") Unfulfilled
-                    @Html.RadioButtonFor(modelItem => item.Status, "F") Fulfilled*@
                 </td>
             </tr>
         }

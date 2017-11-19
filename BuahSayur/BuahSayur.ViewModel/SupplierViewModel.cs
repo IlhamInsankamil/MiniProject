@@ -11,9 +11,11 @@ namespace BuahSayur.ViewModel
     public class SupplierViewModel
     {
         public int Id { get; set; }
-
+        
+        [RegularExpression(@"[A-Z0-9]{7}$", ErrorMessage = "Code must be 7 characters. Contains Number and Letters(in Capitol).")]
         public string Code { get; set; }
 
+        [RegularExpression(@"[A-Za-z\s\-]{0,}", ErrorMessage = "Supplier name should only Letters (space and '-' allowed).")]
         public string Name { get; set; }
 
         [DisplayName("Address")]

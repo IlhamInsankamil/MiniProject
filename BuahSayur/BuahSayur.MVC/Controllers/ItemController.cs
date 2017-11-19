@@ -23,7 +23,6 @@ namespace BuahSayur.MVC.Controllers
 
         public ActionResult Create()
         {
-            //ViewBag.WeightList = new SelectList(ItemViewModel.GetWeightList(), "Value", "Display");
             return View();
         }
 
@@ -35,7 +34,6 @@ namespace BuahSayur.MVC.Controllers
 
         public ActionResult Edit(int id)
         {
-            //ViewBag.WeightList = new SelectList(ItemViewModel.GetWeightList(), "Value", "Display");
             return View(ItemDataAccess.GetById(id));
         }
 
@@ -89,12 +87,12 @@ namespace BuahSayur.MVC.Controllers
             }
         }
 
-        public ActionResult ExceptionList(List<string> exceptionList) // display item by exception
+        public ActionResult ExceptionList(List<string> exceptionList) // display item by exception and show selling price
         {
             return View(ItemDataAccess.GetByException(exceptionList));
         }
 
-        public ActionResult ExceptionListMax(List<string> exceptionListMax) // display item by exception
+        public ActionResult ExceptionListMax(List<string> exceptionListMax) // show purchasing price
         {
             return View(ItemDataAccess.GetByExceptionMax(exceptionListMax));
         }

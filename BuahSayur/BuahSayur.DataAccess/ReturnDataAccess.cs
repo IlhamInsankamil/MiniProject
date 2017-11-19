@@ -30,9 +30,7 @@ namespace BuahSayur.DataAccess
                               DeliveryOrder_Id = doh.Id,
                               Item_Code = dod.Item_Code,
                               Item_Name = i.Name,
-                              Quantity = dod.Quantity,
-                              Price = dod.Price,
-                              Total = dod.Total
+                              Quantity = dod.Quantity
                           }).ToList();
             }
 
@@ -78,7 +76,7 @@ namespace BuahSayur.DataAccess
             catch (Exception ex)
             {
                 result.Success = false;
-                Message = ex.Message;                
+                Message = ex.Message;
             }
 
             return result;
@@ -110,6 +108,29 @@ namespace BuahSayur.DataAccess
             catch (Exception ex)
             {
                 Message = ex.Message;
+            }
+
+            return result;
+        }
+
+        public static List<DeliveryOrderHeaderViewModel> GetByFilter(string filterString)
+        {
+            List<DeliveryOrderHeaderViewModel> result = new List<DeliveryOrderHeaderViewModel>();
+
+            using (var db = new BuahSayurContext())
+            {
+                result = (from doh in db.DeliveryOrders
+                          join c in db.Customers
+                            on doh.Customer_Username equals c.Username
+                          select new DeliveryOrderHeaderViewModel
+                          {
+                              Id = doh.Id,
+                              Customer_Username = c.Username,
+                              Reference = doh.Reference,
+                              SellingDate = doh.SellingDate
+                          }).ToList();
+
+                result = result.Where(o => o.Reference.ToLower().Contains(filterString.ToLower()) || o.Customer_Username.ToLower().Contains(filterString.ToLower())).ToList();
             }
 
             return result;

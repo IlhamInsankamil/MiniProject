@@ -83,30 +83,4 @@
         "info": true,
         "autoWidth": false
     });
-
-    @*$(".btn-edit").click(function () {
-        //alert('Idnya adalah: ' + $(this).attr("data-id"));
-        $.ajax({
-            url: '@Url.Action("Edit", "Item")',
-            type: 'get',
-            data: { id: $(this).attr("data-id") },
-            success: function (result) {
-                $(".modal-body").html(result);
-                $("#modal-form").modal("show");
-            }
-        });
-    });
-
-    $(".btn-delete").click(function () {
-        //alert('Idnya adalah: ' + $(this).attr("data-id"));
-        $.ajax({
-            url: '@Url.Action("Delete", "Item")',
-            type: 'get',
-            data: { id: $(this).attr("data-id") },
-            success: function (result) {
-                $(".modal-body").html(result);
-                $("#modal-form").modal("show");
-            }
-        });
-    });*@
 </script>

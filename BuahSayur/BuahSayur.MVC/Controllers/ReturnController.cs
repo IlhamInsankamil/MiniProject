@@ -41,5 +41,10 @@ namespace BuahSayur.MVC.Controllers
             return Json(new { success = false, message = "Invalid Model State!" }, JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult FilterList(string filterString)
+        {
+            //List<DeliveryOrderHeaderViewModel> models = new List<DeliveryOrderHeaderViewModel>();
+            return View(ReturnDataAccess.GetByFilter(filterString));
+        }
     }
 }

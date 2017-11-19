@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Return";
+    ViewBag.Title = "Return Request";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -63,10 +63,7 @@
 
 <div class="panel-group">
     <div class="panel panel-default">
-        <div class="panel-heading">
-            @*<button type="button" class="btn btn-primary btn-add-item">
-                    Add Item
-                </button>*@
+        <div class="panel-heading">            
             <button type="button" class="btn btn-warning btn-save-items">
                 Request Return
             </button>
@@ -132,7 +129,7 @@
 
         function SellingList() {
             $.ajax({
-                url: '@Url.Action("FilterList","Selling")',
+                url: '@Url.Action("FilterList", "Selling")',
                 type: 'get',
                 data: { filterString: $('#txt-search').val() },
                 success: function (result) {
@@ -221,15 +218,6 @@
             } else if (rAm <= 0) {
                 alert("Really?");
             }
-            //$(obj).closest('tr').find('input[name=Total]').val(total);
-            //var grdTotal = 0;
-
-            //$("#purchasing-item-list").find("tr").each(function () {
-            //    var vTotal = $(this).find("input[name=Total]").val();
-            //    grdTotal = parseFloat(grdTotal) + parseFloat(vTotal);
-            //});
-
-            //$("#purchasing-total").html(grdTotal);
         }
 
     </script>

@@ -6,6 +6,13 @@
 <div class="well">
     <h2>@ViewBag.Title</h2>
 </div>
+
+<div class="alert alert-success" id="success-create-supplier" hidden>
+    <button type="button" class="close" data-dismiss="alert">x</button>
+    <strong>Success! </strong>
+    New Supplier added successfully.
+</div>
+
 <div class="panel-group">
     <div class="panel panel-default">
         <div class="panel-heading">
@@ -21,6 +28,9 @@
                 <div class="col-md-4">
                     <button type="button" id="btn-new" class="btn" title="New Transaction" onclick="window.location.href='@Url.Action("Index", "Purchasing")'">
                         New Transaction
+                    </button>
+                    <button type="button" id="btn-new-supplier" class="btn" title="New Supplier">
+                        Sign Up new Supplier
                     </button>
                 </div>
                 <div class="col-lg-3">
@@ -100,6 +110,12 @@
             });
         }
 
+        function SuccessCreatedSupplier() {
+            $("#success-create-supplier").fadeTo(3000, 500).slideUp(500, function () {
+                $("#success-create-supplier").slideUp(500);
+            });
+        }
+
         $('.datepicker').datetimepicker({
             format: "ddd, DD/MM/YYYY",
             defaultDate: Date.now(),
@@ -143,7 +159,45 @@
             });
         }
 
-        /// ----- ///
+        // add new Supplier
+        $("#btn-new-supplier").click(function () {
+            $.ajax({
+                url: '@Url.Action("NewSupplier","Purchasing")',
+                type: 'get',
+                success: function (result) {
+                    $('.modal-body').html(result);
+                    $("#modal-form").modal("show");
+                }
+            })
+        });
+
+        $("#modal-form").on("submit", "#supplier-form", function () {
+            $.ajax({
+                url: '@Url.Action("NewSupplier","Purchasing")',
+                data: $(this).serialize(),
+                type: 'post',
+                success: function (result) {
+                    if (result.success) {
+                        $("#modal-form").modal("hide");
+                        //$("#Code").val(result.data.Code);
+                        //$("#Name").val(result.data.Name);
+                        //$("#City_Code").val(result.data.City_Code);
+                        //$("#City_Name").val(result.data.City_Name);
+                        //$("#Province_Code").val(result.data.Province_Code);
+                        //$("#Province_Name").val(result.data.Province_Name);
+                        //$("#FullAddress").val(result.data.FullAddress);
+                        //$("#IsActivated").val(result.data.IsActivated).is(":checked");
+                        SuccessCreatedSupplier();
+                    }
+                    else {
+                        alert("Fulfill required fields.");
+                    }
+                }
+            })
+            return false;
+        });
+
+        /// add item ///
         $('.btn-add-item').click(function () {
             if ($("#Code").val().length > 0) {
                 var itemList = [''];
@@ -230,6 +284,7 @@
                             $('input[name=PurchasingDate]').prop('disabled', true);
                             $('#txt-search').prop('disabled', true);
                             $('.btn-search').prop('disabled', true);
+                            $('#btn-new-supplier').prop('disabled', true);
                             $('.btn-save-items').prop('disabled', true);
                             $('.btn-add-item').prop('disabled', true);
                             $('input[name=Quantity]').prop('disabled', true);
@@ -257,6 +312,10 @@
                 alert("Maximum stock is 20 Pack/Item. You can only supply maximum " + maxStock +
                     " pack, because we have already had " + stock + " pack in stock.");
                 $(obj).closest('tr').find('input[name=Quantity]').val(maxStock);
+            }
+            else if (qty < 1) {
+                alert("Minimum Purchasing is 1 Pack/Item.");
+                $(obj).closest('tr').find('input[name=Quantity]').val(1);
             }
             $(obj).closest('tr').find('input[name=Total]').val(total);
             var grdTotal = 0;
