@@ -61,6 +61,39 @@
 @section Scripts
 {
     <script type="text/javascript">
+        $(document).ready(function () {
+            // Setup - add a text input to each footer cell
+            $('#data-list .filters td').each(function () {
+                var title = $('#example thead th').eq($(this).index()).text();
+                $(this).html('<input type="text" placeholder="Search ' + title + '" />');
+            });
+
+            // DataTable
+            var table = $('#data-list').DataTable({
+                "columnDefs": [
+                       {
+                           "render": function (data, type, row) {
+                               console.log(data);
+                               if (data === "True") {
+                                   return "<input type='checkbox' checked disabled /><input type='hidden' value='" + data + "' />";
+                               }
+                               else return "<input type='checkbox' disabled /><input type='hidden' value='" + data + "' />";
+                           },
+                           "targets": 2
+                       }
+                ]
+            });
+
+            // Apply the search
+            table.columns().eq(0).each(function (colIdx) {
+                $('input', $('.filters td')[colIdx]).on('keyup change', function () {
+                    table
+                        .column(colIdx)
+                        .search(this.value)
+                        .draw();
+                });
+            });
+        });
         function SuccessCreated() {
             $("#success-create").fadeTo(2000, 500).slideUp(500, function () {
                 $("#success-create").slideUp(500);

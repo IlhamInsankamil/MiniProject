@@ -50,11 +50,11 @@ namespace BuahSayur.ViewModel
         public decimal Stock { get; set; }
 
         [DisplayName("Weight (Kg)"), DisplayFormat(DataFormatString = "{0:0.0}")]
-        [RegularExpression("[0-9]{0,}", ErrorMessage = "Must be a number and not minus.")]
+        [RegularExpression("[0-9.]{0,}", ErrorMessage = "Must be a number and not minus.")]
         public decimal Weight { get; set; }
 
         [DisplayName("Size (m³)"), DisplayFormat(DataFormatString = "{0:0.00}")]
-        [RegularExpression("[0-9]{0,}", ErrorMessage = "Must be a number and not minus.")]
+        [RegularExpression("[0-9.]{0,}", ErrorMessage = "Must be a number and not minus.")]
         public decimal Size { get; set; }
 
         public bool IsActivated { get; set; }

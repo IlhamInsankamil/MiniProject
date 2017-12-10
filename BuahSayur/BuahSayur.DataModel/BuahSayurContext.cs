@@ -129,6 +129,12 @@ namespace BuahSayur.DataModel
                 .HasForeignKey(e => e.DeliveryOrder_Id)
                 .WillCascadeOnDelete(false);
 
+            modelBuilder.Entity<DeliveryOrder>()
+                .HasMany(e => e.ShipmentOrders)
+                .WithRequired(e => e.DeliveryOrder)
+                .HasForeignKey(e => e.DeliveryOrder_Id)
+                .WillCascadeOnDelete(false);
+
             modelBuilder.Entity<DeliveryOrderDetail>()
                 .Property(e => e.Item_Code)
                 .IsUnicode(false);

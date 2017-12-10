@@ -53,9 +53,10 @@ namespace BuahSayur.DataAccess
                         Id = 1,
                         DeliveryOrder_Id = models.DeliveryOrder_Id,
                         Reference = newRef,
-                        ReturnDate = models.ReturnDate
+                        ReturnDate = models.ReturnDate,
+                        
                     };
-                    db.ReturnOrders.Add(returnOrder);
+                    db.ReturnOrders.Add(returnOrder);                    
 
                     foreach (var item in models.ReturnOrderDetails)
                     {
@@ -70,6 +71,12 @@ namespace BuahSayur.DataAccess
                         };
                         db.ReturnOrderDetails.Add(returnOrderDetail);
                     }
+
+
+                    // set IsReturned to true
+                    DeliveryOrder deliveryOrder = db.DeliveryOrders.Where(x => x.Id == models.DeliveryOrder_Id).FirstOrDefault();
+                    deliveryOrder.IsReturned = true;
+
                     db.SaveChanges();
                 }
             }

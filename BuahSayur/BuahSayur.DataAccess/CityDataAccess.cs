@@ -139,7 +139,6 @@ namespace BuahSayur.DataAccess
                           where ct.Province_Code == provinceCode
                           select new CityViewModel
                           {
-                              //Id = ct.Id,
                               Code = ct.Code,
                               Province_Code = ct.Province_Code,
                               Name = ct.Name,

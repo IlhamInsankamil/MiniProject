@@ -89,7 +89,6 @@
             Code: $("#Code").val(),
             Name: $("#Name").val(),
             Address: $("#Address").val(),
-            //Province_Code: $("#Province_Code").val(),
             City_Code: $("#City_Code").val(),
             IsActivated: $("#IsActivated").is(":checked")
         };
@@ -106,6 +105,7 @@
                     //alert("Create Succesful");
                 } else {
                     alert('Error: ' + result.message);
+                    //alert('Fullfill required fields.');
                 }
             }
         });

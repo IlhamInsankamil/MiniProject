@@ -12,12 +12,15 @@ namespace BuahSayur.ViewModel
     {
         public int Id { get; set; }
         
+        [Required]
         [RegularExpression(@"[A-Z0-9]{7}$", ErrorMessage = "Code must be 7 characters. Contains Number and Letters(in Capitol).")]
         public string Code { get; set; }
 
+        [Required]
         [RegularExpression(@"[A-Za-z\s\-]{0,}", ErrorMessage = "Supplier name should only Letters (space and '-' allowed).")]
         public string Name { get; set; }
 
+        [Required]
         [DisplayName("Address")]
         public string Address { get; set; }        
 
@@ -27,6 +30,7 @@ namespace BuahSayur.ViewModel
         [DisplayName("Province")]
         public string Province_Name { get; set; }
 
+        [Required]
         [DisplayName("City")]
         public string City_Code { get; set; }
 

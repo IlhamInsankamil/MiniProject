@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,7 +21,8 @@ namespace BuahSayur.ViewModel
         public string Item_Name { get; set; }
 
         public decimal Quantity { get; set; }
-
+        
+        [Required]
         [DisplayName("Return Amount")]
         public decimal ReturnAmount { get; set; }
 

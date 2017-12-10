@@ -28,7 +28,9 @@ namespace BuahSayur.DataAccess
                         Id = 1,
                         Customer_Username = models.Customer_Username,
                         Reference = newRef,
-                        SellingDate = models.SellingDate
+                        SellingDate = models.SellingDate,
+                        IsSent = false,
+                        IsReturned = false
                     };
                     db.DeliveryOrders.Add(deliveryOrder);
 
@@ -109,7 +111,9 @@ namespace BuahSayur.DataAccess
                               Id = dOr.Id,
                               Customer_Username = c.Username,
                               Reference = dOr.Reference,
-                              SellingDate = dOr.SellingDate
+                              SellingDate = dOr.SellingDate,
+                              IsSent = dOr.IsSent,
+                              IsReturned = dOr.IsReturned
                           }).FirstOrDefault();
             }
             return result;
@@ -129,8 +133,11 @@ namespace BuahSayur.DataAccess
                               Id = dOr.Id,
                               Customer_Username = c.Username,
                               Reference = dOr.Reference,
-                              SellingDate = dOr.SellingDate
-                          }).ToList();
+                              SellingDate = dOr.SellingDate,
+                              //IsSent = dOr.IsSent,
+                              IsReturned = dOr.IsReturned
+                          }).Where(o => o.IsReturned == false && o.SellingDate < DateTime.Today).ToList();
+                // 
 
                 result = result.Where(o => o.Reference.ToLower().Contains(filterString.ToLower()) || o.Customer_Username.ToLower().Contains(filterString.ToLower())).ToList();
             }

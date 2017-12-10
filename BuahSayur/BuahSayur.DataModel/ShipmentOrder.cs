@@ -35,5 +35,7 @@ namespace BuahSayur.DataModel
 
         [StringLength(10)]
         public string ModifiedBy { get; set; }
+
+        public virtual DeliveryOrder DeliveryOrder { get; set; }
     }
 }

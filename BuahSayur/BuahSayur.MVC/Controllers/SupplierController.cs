@@ -67,7 +67,7 @@ namespace BuahSayur.MVC.Controllers
                 }
                 else
                 {
-                    return Json(new { success = false, message = "Please full fill required fields!" }, JsonRequestBehavior.AllowGet);
+                    return Json(new { success = false, message = "Please fulfill required fields!" }, JsonRequestBehavior.AllowGet);
                 }
             }
             catch (Exception ex)

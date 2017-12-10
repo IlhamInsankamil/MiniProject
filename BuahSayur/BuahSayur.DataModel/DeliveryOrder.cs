@@ -13,6 +13,7 @@ namespace BuahSayur.DataModel
         {
             DeliveryOrderDetails = new HashSet<DeliveryOrderDetail>();
             ReturnOrders = new HashSet<ReturnOrder>();
+            ShipmentOrders = new HashSet<ShipmentOrder>();
         }
 
         public int Id { get; set; }
@@ -26,6 +27,10 @@ namespace BuahSayur.DataModel
         public string Reference { get; set; }
 
         public DateTime SellingDate { get; set; }
+
+        public bool IsSent { get; set; }
+
+        public bool IsReturned { get; set; }
 
         public DateTime? Created { get; set; }
 
@@ -42,5 +47,7 @@ namespace BuahSayur.DataModel
         public virtual ICollection<DeliveryOrderDetail> DeliveryOrderDetails { get; set; }
 
         public virtual ICollection<ReturnOrder> ReturnOrders { get; set; }
+
+        public virtual ICollection<ShipmentOrder> ShipmentOrders { get; set; }
     }
 }

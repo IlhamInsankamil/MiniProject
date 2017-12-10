@@ -33,6 +33,10 @@ namespace BuahSayur.ViewModel
             } 
         }
 
+        public bool IsSent { get; set; }
+
+        public bool IsReturned { get; set; }
+
         // Detail
         public List<DeliveryOrderDetailViewModel> DeliveryDetails { get; set; }
     }

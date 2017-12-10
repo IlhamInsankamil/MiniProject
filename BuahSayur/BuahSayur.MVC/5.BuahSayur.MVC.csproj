@@ -318,15 +318,12 @@
     <Content Include="Views\Return\DeliveryForm.cshtml" />
     <Content Include="Views\Selling\FilterList.cshtml" />
     <Content Include="Views\Return\ReturnList.cshtml" />
-<<<<<<< HEAD
     <Content Include="Views\Item\ExceptionListMax.cshtml" />
     <Content Include="Views\Return\FilterList.cshtml" />
     <Content Include="Views\Purchasing\_SupplierForm.cshtml" />
-=======
     <Content Include="Views\Shipment\DeliveryForm.cshtml" />
     <Content Include="Views\Shipment\Index.cshtml" />
     <Content Include="Views\Shipment\ShippingList.cshtml" />
->>>>>>> 0be108b8dca59e3f4d9d6d7d24cdc3400d3e0ef6
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -307,16 +307,22 @@
             //alert($(obj).val());
             var qty = parseInt($(obj).closest('tr').find('input[name=Quantity]').val()) || 0;
             var prc = $(obj).closest('tr').find('input[name=Price]').val();
-            var total = qty * prc;
+            //var total = qty * prc;
+            var total = 0;
             if (qty > maxStock) {
                 alert("Maximum stock is 20 Pack/Item. You can only supply maximum " + maxStock +
                     " pack, because we have already had " + stock + " pack in stock.");
                 $(obj).closest('tr').find('input[name=Quantity]').val(maxStock);
+                qty = maxStock;
             }
             else if (qty < 1) {
                 alert("Minimum Purchasing is 1 Pack/Item.");
                 $(obj).closest('tr').find('input[name=Quantity]').val(1);
+                qty = 1;
             }
+
+            total = qty * prc;
+
             $(obj).closest('tr').find('input[name=Total]').val(total);
             var grdTotal = 0;
 
